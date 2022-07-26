@@ -1,5 +1,5 @@
 # Genshin Scanner
-I'll be using OCR APIs to make an app that scans an image for text, and output calculated data from it.
+I'll be using an OCR API to make an app that scans an uploaded screenshot, validate the data, and output results to the user.
 
 # Specs
 - user can upload screenshots of their builds (start with 1920 x 1080 screenshots)
