@@ -6,6 +6,10 @@ I'll be using an OCR API to make an app that scans an uploaded screenshot, valid
 - use Genshin Impact database API
 - use Free OCR API (ocr engine 2 for unique characters) to scan text
 
+# How to start:
+- have npm installed
+- `npm run build` --> uses `"webpack": "build"` 
+
 # Process
 - use multi-field forms
 - filter data to remove unique symbols (like percent signs)

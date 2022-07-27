@@ -11,7 +11,7 @@ async function testOCR() {
         // use fetch api to request data
         const response = await fetch(reqURL);
         const genshinData = await response.json();
-        // populateHTML(genshinData);
+        populateHTML(genshinData);
         console.log(genshinData);
     } catch(error) {
         console.log(error);
