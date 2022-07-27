@@ -14,5 +14,12 @@ I'll be using an OCR API to make an app that scans an uploaded screenshot, valid
     - validate that the 
     - convert each element to a string if not already
 
+# Challenges
+- uploading images and accessing them through only the front end
+    - will I be able to use an API that can save them?
+- cropping 1920 x 1080 images to a particular region to extract text from
+- storing the image on local computer before sending to API
+- sending the modified image to the API 
+
 # Features yet to implement
 - support for mobile devices, and PS4/PS5 screenshots
