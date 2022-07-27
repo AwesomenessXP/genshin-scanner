@@ -2,7 +2,7 @@ import printMe from './test.js';
 
 const APIKEY = 'K85339385488957';
 
-// grab the data from Free OCR website
+// GET the data from OCR API
 function testOCR() {
     const imageURL = `https://cdn.gamestegy.com/posts-images/2-yzBiFjw0NA.jpg`;
     const reqURL = `https://api.ocr.space/parse/imageurl?apikey=${APIKEY}&url=${imageURL}&filetype=png&OCREngine=2`;
@@ -22,14 +22,14 @@ function testOCR() {
 function populateHTML(scannedTextObj) {
     const scannedText = scannedTextObj.ParsedResults[0].ParsedText;
     const finalText = scannedText.split('\n');
-    console.log(finalText);
     const section = document.querySelector('body');
 
-    for (textItem of finalText) {
+    console.log(finalText);
+    finalText.forEach((text) => {
         const newPara = document.createElement('p');
-        newPara.innerHTML = `${textItem}`;
+        newPara.textContent = `${text}`;
         section.appendChild(newPara);
-    }
+    });
 }
 
 // document.body.appendChild(component());

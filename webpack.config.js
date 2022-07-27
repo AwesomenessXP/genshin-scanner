@@ -4,7 +4,7 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 module.exports = {
     entry: {
         index: './src/index.js',
-        test: './src/test.js'
+        test: './src/test.js',
     },
     module: {
         rules: [
@@ -20,7 +20,11 @@ module.exports = {
     },
     plugins: [
         new HtmlWebpackPlugin({
+            hash: true,
             title: 'Genshin Scanner',
+            filename: './dist/index.html',
+            template: './src/index.html',
+            myPageHeader: 'Hello World!',
         })
     ],
     output: {
