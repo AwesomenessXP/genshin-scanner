@@ -1,5 +1,5 @@
 # Genshin Scanner
-I'll be using an OCR API to make an app that scans an uploaded screenshot, validate the data, and output results to the user.
+I'll be using an OCR API to make an app that scans an uploaded screenshot, validates the data, and output results to the user.
 
 # Specs
 - user can upload screenshots of their builds (start with 1920 x 1080 screenshots)
@@ -11,13 +11,14 @@ I'll be using an OCR API to make an app that scans an uploaded screenshot, valid
 - filter data to remove unique symbols (like percent signs)
 - research formulas for calculating damage in Genshin Impact
 - scan data, and match results with the database to verify proper data
-    - validate that the 
+    - validate that the text uploaded correctly
     - convert each element to a string if not already
 
 # Challenges
 - cropping 1920 x 1080 images to a particular region before sending to OCR API
 - storing the image with session storage to allow short term storage of multiple files
 - sending the modified image to the OCR API (what format to use/ how do I simplify this process?)
+- writing unit tests to determine how accurate the OCR API is
 
 # Resources to help me:
 - [OCR API for parsing images/pdf into a JSON format](https://ocr.space/ocrapi#ocrengine)
@@ -26,6 +27,11 @@ I'll be using an OCR API to make an app that scans an uploaded screenshot, valid
 - [For cropping images](https://pixelixe.com/docs/image-processing/crop-image-api.html)
 - [Uploading images to server using Fetch API](https://www.youtube.com/watch?v=e13T3O0Iyvc)
 - [For `POST` calls to get JSON of data using Fetch API](https://www.youtube.com/watch?v=TTf0mMl0Sc4&list=WL&index=2)
+
+- for uploading index.html to Github Pages:
+    - `git add dist/dist`
+    - `git commit -m "message"`
+    - `git subtree push --prefix dist/dist origin gh-pages`
 
 # Features yet to implement
 - support for mobile devices, and PS4/PS5 screenshots
