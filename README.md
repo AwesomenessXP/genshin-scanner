@@ -22,8 +22,10 @@ I'll be using an OCR API to make an app that scans an uploaded screenshot, valid
 - sending the modified image to the API 
 
 # Resources to help me:
+- [OCR API for parsing images into a JSON format](https://ocr.space/ocrapi#ocrengine)
 - [How to upload images with vanilla JS](https://blog.logrocket.com/how-to-build-file-upload-service-vanilla-javascript/#set-up-the-node-js-server) 
 - [Using local storage in place of a database (can change later)](https://www.section.io/engineering-education/how-to-use-localstorage-with-javascript/)
+- [For cropping images](https://pixelixe.com/docs/image-processing/crop-image-api.html)
 
 # Features yet to implement
 - support for mobile devices, and PS4/PS5 screenshots
