@@ -1,3 +1,5 @@
+import APIKEY from "./api_key.js";
+
 export const artifactPiece = (SCREENSHOT) => {
   // we will return this object to be used by other files
   let stats = {
@@ -6,8 +8,7 @@ export const artifactPiece = (SCREENSHOT) => {
     critRate: null,
     elemMastery: null,
   };
-  // my API key
-  const APIKEY = "K85339385488957";
+
   // GET the data from OCR API
   async function extractText() {
     const reqURL = `https://api.ocr.space/parse/imageurl?apikey=${APIKEY}&url=${SCREENSHOT}&filetype=png&OCREngine=2`;
