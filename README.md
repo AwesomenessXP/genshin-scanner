@@ -15,26 +15,30 @@ I'll be using an OCR API to make an app that scans an uploaded screenshot of you
 
 # Process
 
+## Part 1:
 - use form-data to submit user inputted image (png, jpg, jpeg)
-- OCR Engine 2 will filter data to remove unique symbols (like percent signs)
-- research formulas for calculating damage in Genshin Impact
+- OCR Engine 2 will identify unique symbols (like percent signs)
 - scan data, and match results with the database to verify proper data
   - for calculations: focus only ATK, ATK%, CRIT RATE, CRIT DMG, EM
     - don't forget about character base atk and their weapon!
     - don't forget enemy types and their resistances to dmg
   - validate that the text uploaded correctly
   - convert each element to a string if not already
-- compressing images to be < 1 MB
-
-# Challenges
-
 - cropping 1920 x 1080 images to a particular region before sending to OCR API
 - storing the image with session storage so user can see their builds on screen while visiting
 - sending the modified image to the OCR API (what format to use/ how do I simplify this process?)
-- writing unit tests to determine how accurate the OCR API is
+
+## Part 2:
+- store user data in session storage, then retrieve data from it
+- compressing images to be < 1 MB
+
+## Part 3:
+- research formulas for calculating damage in Genshin Impact
 
 # What I learned:
 
+- How to design the project:
+  - use factory objects for artifact pieces, uploaded images, and calculations
 - How to make GET and POST requests to OCR API
 - making my code reusable by modularizing the artifact scan
 - ATK stat wouldn't show the stat number, so i had to access the next element
