@@ -40,6 +40,7 @@ I'll be using an OCR API to make an app that scans an uploaded screenshot, valid
 - ATK stat wouldn't show the stat number, so i had to access the next element
 - Learned that `regex` HAS to be used before making instances of `RegExp`
   - also learned that `^` means to look for an expression at the beginning of a string
+- using an IIFE (immediately invoked function expression) made the API request faster
 
 # Resources to help me:
 

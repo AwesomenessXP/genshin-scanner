@@ -58,7 +58,7 @@ import APIKEY from "./api_key.js";
     else if (em.test(stat)) { 
       stats.elemMastery = stat; // if / else
       return true;
-    }
+    } // else if
     return false;
   } // validateStats()
 
@@ -74,11 +74,12 @@ import APIKEY from "./api_key.js";
       stats.critDmg = stat
         .replace("CRIT DMG+", "")
         .replace("%", ""); // if
-    }
+    } // if
   } // cleanStats()
 
   // render a new <p> element
   // ATK stats are our exception
+  // used an immediately invoked func expression
   async function renderElements(artifacts, section, item) {
     const newPara = document.createElement("p"); 
     if (artifacts[item] === "ATK") {
@@ -87,8 +88,8 @@ import APIKEY from "./api_key.js";
     } // if
     else { 
       (validateStats(artifacts[item])) ?
-        (newPara.textContent = `${artifacts[item]}`) // if
-        : console.log(`This stat is not factored in calculating damage`); // else
+          (newPara.textContent = `${artifacts[item]}`) // if
+          : console.log(`This stat is not factored in calculating damage`); // else
     } // else
     section.appendChild(newPara);
   } // renderElements()
