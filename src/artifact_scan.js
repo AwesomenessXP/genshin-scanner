@@ -21,42 +21,27 @@ export const artifactPiece = (SCREENSHOT) => {
     } catch (error) {
       console.log(error);
     }
-  }
+  } // artifactPiece()
 
   // --------------------------------- PRIVATE ATTRIBUTES ----------------------------------------------------------------
 
   // populate the HTML file
   async function populateHTML(scannedTextObj) {
-    // now that we fetched the data, modify it to be outputtable
-    const scannedText = scannedTextObj.ParsedResults[0].ParsedText;
-    const artifacts = await scannedText.split("\n"); // break up the objects into elements of an array with '\n'
-    const section = document.querySelector("body");
+    // validate that
+    try {
+      // now that we fetched the data, modify it to be outputtable
+      const scannedText = scannedTextObj.ParsedResults[0].ParsedText;
+      const artifacts = await scannedText.split("\n"); // break up the objects into elements of an array with '\n'
+      const section = document.querySelector("body");
 
-    // render the elements to the screen
-    for (let i = 0; i < artifacts.length; i++) {
-      // render a new <p> element
-      const newPara = document.createElement("p");
-
-      // if stat is ATK --> grab the next element because it is the actual number
-      // else, validate the stat
-      if (artifacts[i] === "ATK") {
-        // this is our exception because ATK isn't properly read
-        stats.atk = artifacts[i + 1];
-        newPara.textContent = `${artifacts[i + 1]}`;
-      } // if
-      else {
-        if (validateStats(artifacts[i])) {
-          newPara.textContent = `${artifacts[i]}`;
-        } // if
-        else {
-          console.log("This stat is not factored in calculating damage");
-        }
-      } // else
-
-      section.appendChild(newPara);
-    } // for
-
-    document.body.append(document.createElement("hr"));
+      // render the elements to the screen
+      for (let item = 0; item < artifacts.length; item++) {
+        renderElements(artifacts, section, item);
+      } // for
+      document.body.append(document.createElement("hr"));
+    } catch (error) {
+      console.log(error);
+    }
   } // populateHTML()
 
   // Validate the text that was parsed
@@ -66,7 +51,6 @@ export const artifactPiece = (SCREENSHOT) => {
     const artifacts = new Map();
     artifacts.set("Gladiator's Destiny", "Emblem");
 
-    // private attributes
     // ^ means look at the beginning of the string
     const regex = new RegExp("^CRIT Rate");
     const critDmg = new RegExp("^CRIT DMG");
@@ -76,18 +60,43 @@ export const artifactPiece = (SCREENSHOT) => {
     if (regex.test(stat) || critDmg.test(stat) || em.test(stat)) {
       result = true;
       em.test(stat) ? (stats.elemMastery = stat) : null;
-      // removes 'CRIT RATE' or 'CRIT DMG' from the string
-      if (regex.test(stat)) {
-        // modify the text then save it
-        stats.critRate = stat.replace("CRIT Rate+", "").replace("%", "");
-      } // if
-      if (critDmg.test(stat)) {
-        // modify the text then save it
-        stats.critDmg = stat.replace("CRIT DMG+", "").replace("%", "");
-      }
+      cleanStats(regex, critDmg, stat);
     } // if
     return result;
   } // validateStats()
+
+  async function cleanStats(regex, critDmg, stat) {
+    // removes 'CRIT RATE' or 'CRIT DMG' from the string
+    if (regex.test(stat)) {
+      // modify the text then save it
+      stats.critRate = stat.replace("CRIT Rate+", "").replace("%", "");
+    } // if
+    if (critDmg.test(stat)) {
+      // modify the text then save it
+      stats.critDmg = stat.replace("CRIT DMG+", "").replace("%", "");
+    }
+  } // cleanStats() --> return null
+
+  async function renderElements(artifacts, section, item) {
+    // render a new <p> element
+    const newPara = document.createElement("p");
+
+    // if stat is ATK --> grab the next element because it is the actual number else, validate the stat
+    if (artifacts[item] === "ATK") {
+      // this is our exception because ATK isn't properly read
+      stats.atk = artifacts[item + 1];
+      newPara.textContent = `${artifacts[item + 1]}`;
+    } // if
+    else {
+      if (validateStats(artifacts[item])) {
+        newPara.textContent = `${artifacts[item]}`;
+      } // if
+      else {
+        console.log("This stat is not factored in calculating damage");
+      } // else
+    } // else
+    section.appendChild(newPara);
+  } // renderElements()
 
   return {
     extractText,

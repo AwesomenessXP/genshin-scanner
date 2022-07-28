@@ -50,7 +50,7 @@ I'll be using an OCR API to make an app that scans an uploaded screenshot, valid
 - [Uploading images to server using Fetch API](https://www.youtube.com/watch?v=e13T3O0Iyvc)
 - [For `POST` calls to get JSON of data using Fetch API](https://www.youtube.com/watch?v=TTf0mMl0Sc4&list=WL&index=2)
 
-- for uploading index.html to Github Pages:
+- for uploading index.html to GH Pages if it is in a subdirectory:
   - `git add dist`
   - `git commit -m "message"`
   - `git subtree push --prefix dist origin client`
