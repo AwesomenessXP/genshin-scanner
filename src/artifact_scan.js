@@ -51,6 +51,7 @@ import APIKEY from "./api_key.js";
     const regex = new RegExp("^CRIT Rate");
     const critDmg = new RegExp("^CRIT DMG");
     const em = new RegExp("^Elemental Mastery");
+    
     if (regex.test(stat) || critDmg.test(stat)) {
       cleanStats(regex, critDmg, stat);
       return true;
