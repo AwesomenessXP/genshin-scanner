@@ -1,4 +1,4 @@
-# Genshin Artifact Scanner
+# (in development) Genshin Artifact Scanner
 
 I'll be using an OCR API to make an app that scans an uploaded screenshot, validates the data, and output results to the user. I don't know much about using APIs, but hopefully I learn something from this project.
 
