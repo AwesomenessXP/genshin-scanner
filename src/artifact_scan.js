@@ -1,7 +1,7 @@
 export const artifactPiece = (screenshot) => {
   const APIKEY = "K85339385488957";
   // GET the data from OCR API
-  async function testOCR() {
+  async function extractText() {
     const reqURL = `https://api.ocr.space/parse/imageurl?apikey=${APIKEY}&url=${screenshot}&filetype=png&OCREngine=2`;
 
     try {
@@ -31,6 +31,8 @@ export const artifactPiece = (screenshot) => {
         section.appendChild(newPara);
       }
     });
+
+    document.body.append(document.createElement("hr"));
   }
 
   // Validate the text that was parsed
@@ -52,6 +54,6 @@ export const artifactPiece = (screenshot) => {
   }
 
   return {
-    testOCR,
+    extractText,
   };
 };
