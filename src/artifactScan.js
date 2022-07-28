@@ -14,8 +14,7 @@ export const artifactPiece = (SCREENSHOT) => {
   // GET the data from OCR API
   // use fetch api to request data
   const extractText = async () => {
-    const reqURL = `https://api.ocr.space/parse/imageurl?apikey=${APIKEY}
-                        &url=${SCREENSHOT}&filetype=png&OCREngine=2`;
+    const reqURL = `https://api.ocr.space/parse/imageurl?apikey=${APIKEY}&url=${SCREENSHOT}&filetype=png&OCREngine=2`;
     try {
       const response = await fetch(reqURL);
       const genshinData = await response.json();

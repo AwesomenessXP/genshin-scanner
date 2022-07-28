@@ -1,13 +1,32 @@
 export const userImage = () => {
+    const screenshot = document.getElementById('screenshot');
+    const submitBtn = document.getElementById('submit');
     // --------------------- PUBLIC ATTRIBUTES ----------------------------------
-    const storeImg = () => {
-        const screenshot = document.getElementById('screenshot');
+    const requestImg = () => {
+        // TEST OUT IMAGE THEN URL
         screenshot.addEventListener('change', function () {
-            console.log(this.files);
+            const reader = new FileReader(); // converts image to data URL
+            reader.addEventListener('load', () => {
+                console.log(reader.result);
+                sessionStorage.setItem('artifact', reader.result);
+            });
+            reader.readAsDataURL(this.files[0]); // result will be in binary
         });
     }
 
+    // retrieve the image from session storage, then send to user
+    const getImg = () => {
+        const screenshotURL = submitBtn.addEventListener('click', () => {
+            const recentImage = sessionStorage.getItem('artifact');
+            if (recentImage) {
+                document.querySelector('#img-preview').setAttribute("src", recentImage);
+            }
+        });
+        return screenshotURL;
+    }
+
     return {
-        storeImg,
+        requestImg,
+        getImg,
     }
 }

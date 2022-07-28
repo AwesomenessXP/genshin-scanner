@@ -12,13 +12,19 @@
 
     <h1>Genshin Impact Artifact Scanner</h1>
 
-    <!-- <form action="#">
-      <div>      </div> -->
-        <label for="screenshot">Screenshot</label>
-        <input type="file" id="screenshot" accept="image/*">
-
-        <!-- <button id="sumbitBtn" type="submit">Upload Screenshot</button> -->
-    </form>
+    <div>
+      <label for="screenshot">Upload your screenshot: </label>
+      <input type="file" id="screenshot" accept="image/*">
+    </div>
+    <div>
+      <button id="submit">Submit</button>
+    </div>
+    <div>
+      <img id="img-preview" src="" alt="Preview" width="500">
+    </div>
+    <div>
+      <button id="scan-btn">Scan image</button>
+    </div>
 
     <script defer="defer" src="index.bundle.js"></script>
 
