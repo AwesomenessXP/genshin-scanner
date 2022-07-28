@@ -4,6 +4,7 @@ module.exports = {
   entry: {
     index: "./src/index.js",
     test: "./src/test.js",
+    artifact_scan: "./src/artifact_scan.js",
   },
   module: {
     rules: [

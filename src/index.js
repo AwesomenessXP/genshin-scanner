@@ -1,37 +1,10 @@
 import printMe from "./test.js";
+import { artifactPiece } from "./artifact_scan.js";
 
-const APIKEY = "K85339385488957";
+// testing code in the main function
+const TestIMG = `https://upload-os-bbs.hoyolab.com/upload/2020/11/29/71442388/d5c6f4c21ef5bacd7b647ad04fb5e419_7454029195115335204.png`;
+const IMG2 = `https://www.gamersdecide.com/sites/default/files/authors/u158743/def.jpg`;
+const newArtifact = artifactPiece(TestIMG);
+const anotherArtifact = artifactPiece(IMG2);
 
-// GET the data from OCR API
-async function testOCR() {
-  const testImg = `https://upload-os-bbs.hoyolab.com/upload/2020/11/29/71442388/d5c6f4c21ef5bacd7b647ad04fb5e419_7454029195115335204.png`;
-  const reqURL = `https://api.ocr.space/parse/imageurl?apikey=${APIKEY}&url=${testImg}&filetype=png&OCREngine=2`;
-
-  try {
-    // use fetch api to request data
-    const response = await fetch(reqURL);
-    const genshinData = await response.json();
-    populateHTML(genshinData);
-    console.log(genshinData);
-  } catch (error) {
-    console.log(error);
-  }
-}
-
-// populate the HTML file
-async function populateHTML(scannedTextObj) {
-  // now that we fetched the data, modify it to be outputtable
-  const scannedText = scannedTextObj.ParsedResults[0].ParsedText;
-  const finalText = scannedText.split("\n"); // break up the objects into elements of an array with '\n'
-  const section = document.querySelector("body");
-
-  // render the elements to the screen
-  finalText.forEach((text) => {
-    const newPara = document.createElement("p");
-    newPara.textContent = `${text}`;
-    section.appendChild(newPara);
-  });
-}
-
-// document.body.appendChild(component());
-testOCR();
+newArtifact.testOCR();
