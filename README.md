@@ -33,6 +33,14 @@ I'll be using an OCR API to make an app that scans an uploaded screenshot, valid
 - sending the modified image to the OCR API (what format to use/ how do I simplify this process?)
 - writing unit tests to determine how accurate the OCR API is
 
+# What I learned:
+
+- How to make GET and POST requests to OCR API
+- making my code reusable by modularizing the artifact scan
+- ATK stat wouldn't show the stat number, so i had to access the next element
+- Learned that `regex` HAS to be used before making instances of `RegExp`
+  - also learned that `^` means to look for an expression at the beginning of a string
+
 # Resources to help me:
 
 - [OCR API for parsing images/pdf into a JSON format](https://ocr.space/ocrapi#ocrengine)
