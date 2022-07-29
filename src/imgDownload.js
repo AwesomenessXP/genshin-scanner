@@ -10,7 +10,6 @@ export const userImage = () => {
                 sessionStorage.setItem('artifact', reader.result);
             });
             reader.readAsDataURL(this.files[0]); // result will be in binary
-            // return URL
         });
 
         submitBtn().addEventListener('click', () => {

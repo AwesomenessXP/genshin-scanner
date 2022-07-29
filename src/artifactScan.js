@@ -41,9 +41,6 @@ export const artifactPiece = (SCREENSHOT) => {
   // --------------------------------- PRIVATE ATTRIBUTES ----------------------------------------------------------------
     
   // populate the HTML file
-  // now that we fetched the data, modify it to be outputtable
-  // break up the objects into elements of an array with '\n'
-  // render the elements to the screen
   const populateHTML = async (scannedTextObj) => {
     try {
       const scannedText = scannedTextObj.ParsedResults[0].ParsedText;
@@ -56,10 +53,22 @@ export const artifactPiece = (SCREENSHOT) => {
     } catch (error) { console.log(error); }
   } // populateHTML()
 
+    // render a new <p> element
+    const renderElements = async (artifacts, section, item) => {
+      const newPara = document.createElement("p");
+      if ((artifacts[item] === "ATK") && (artifacts[item+1] >= '0')) {
+        dmgStats.atk = artifacts[item + 1];
+        newPara.textContent = `${artifacts[item + 1]}`;
+      } // if
+      else {
+        (validateDmgStats(artifacts[item])) ?
+          (newPara.textContent = `${artifacts[item]}`) // if
+          : console.log(`This stat is not factored in calculating damage`); // else
+      } // else
+      section.appendChild(newPara);
+    } // renderElements()
+
   // Validate the text that was parsed
-  // this will contain our artifact names
-  // ^ means look at the beginning of the string
-  // if valid, store in the artifact dmgStats object
   const validateDmgStats = (stat) => {
     const artifacts = new Map().set("Gladiator's Destiny", "Emblem"); // TODO: WILL USE LATER!!
     const regex = new RegExp("^CRIT Rate");
@@ -78,7 +87,6 @@ export const artifactPiece = (SCREENSHOT) => {
   } // validatedmgStats()
 
   // removes 'CRIT RATE' or 'CRIT DMG' from the string
-  // modify the text then save it
   const cleanDmgStats = async (regex, critDmg, stat) => {
     if (regex.test(stat)) {
       dmgStats.critRate = stat
@@ -91,23 +99,6 @@ export const artifactPiece = (SCREENSHOT) => {
         .replace("%", ""); // if
     } // if
   } // cleandmgStats()
-
-  // render a new <p> element
-  // ATK dmgStats are our exception
-  // used an immediately invoked func expression
-  const renderElements = async (artifacts, section, item) => {
-    const newPara = document.createElement("p");
-    if (artifacts[item] === "ATK") {
-      dmgStats.atk = artifacts[item + 1];
-      newPara.textContent = `${artifacts[item + 1]}`;
-    } // if
-    else {
-      (validateDmgStats(artifacts[item])) ?
-        (newPara.textContent = `${artifacts[item]}`) // if
-        : console.log(`This stat is not factored in calculating damage`); // else
-    } // else
-    section.appendChild(newPara);
-  } // renderElements()
 
   return {
     extractText,

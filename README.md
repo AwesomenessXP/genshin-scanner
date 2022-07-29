@@ -47,11 +47,9 @@ I'll be using an OCR API to make an app that scans an uploaded screenshot of you
 - using an IIFE (immediately invoked function expression) made the API request faster
 
 # Challenges:
-
-- sending images from local computer to OCR API (only took me like 8 hours to fix lol)
-  - FIX: 
-    - I wasn't retrieving the images from session storage
-    - used `url` instead of `base64Image` parameter when making a `POST` request
+- My biggest challenge with this project was uploading the images to the API because I wanted to test with local files. Then I realized I could convert the images to base 64 string and send them to API and thats where all my problems were, but I realized I was overthinking the whole time. I wasn't uploading base 64 strings the whole time, but undefined objects. Idk how to make the backend for Node JS so I just used session storage to temporarily hold the images, then retrieve them when I needed to scan them
+  - I wasn't retrieving the images from session storage
+  - used `url` instead of `base64Image` parameter when making a `POST` request
 
 # Resources to help me:
 
