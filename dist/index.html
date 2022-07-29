@@ -6,7 +6,10 @@
     <title>Genshin Impact Artifact Scanner</title>
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="">
+    <script defer="defer" src="index.bundle.js"></script>
+    <link
+    href="https://fonts.googleapis.com/css2?family=Big+Shoulders+Stencil+Text:wght@400;700;900&family=Poppins:wght@400;700;900&display=swap"/>
+    <link rel="stylesheet" href="styles.css">
   </head>
   <body>
 
@@ -20,13 +23,12 @@
       <button id="submit">Submit</button>
     </div>
     <div>
-      <img id="img-preview" src="" alt="Preview" width="500">
+      <canvas id="img-preview" src="" alt="Preview" height="360" width="640" style="
+        border: 1px solid rgb(34, 34, 34); border-radius: 5px; background-color: rgba(128, 128, 128, 0.199);"></canvas>
     </div>
     <div>
       <button id="scan-btn">Scan image</button>
     </div>
-
-    <script defer="defer" src="index.bundle.js"></script>
 
   </body>
 </html>

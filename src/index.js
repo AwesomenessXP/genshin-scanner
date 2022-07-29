@@ -1,5 +1,6 @@
 import { artifactPiece } from "./artifactScan.js";
 import { userImage } from "./imgDownload.js";
+import './styles.css';
 
 document.addEventListener('DOMContentLoaded', init);
 

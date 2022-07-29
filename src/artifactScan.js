@@ -14,6 +14,7 @@ export const artifactPiece = (SCREENSHOT) => {
   // GET the data from OCR API
   // use fetch api to request data
   const extractText = async () => {
+    const error = 'ERROR: unable to scan text!';
     const reqURL = `https://api.ocr.space/parse/image`;
     try {
       var myHeaders = new Headers();
@@ -33,9 +34,17 @@ export const artifactPiece = (SCREENSHOT) => {
 
       const response = await fetch(reqURL, requestOptions)
       const genshinData = await response.json();
+      if (genshinData.ParsedResults[0].ParsedText === '' || genshinData.IsErroredOnProcessing) {
+        throw error;
+      }
       populateHTML(genshinData);
       console.log(genshinData);
-    } catch (error) { console.log(error); }
+    } catch (error) {
+      console.log(error);
+      const errorNotif = document.createElement('p');
+      document.body.appendChild(errorNotif);
+      errorNotif.textContent = error;
+    }
   } // artifactPiece()
     
   // --------------------------------- PRIVATE ATTRIBUTES ----------------------------------------------------------------
@@ -56,7 +65,8 @@ export const artifactPiece = (SCREENSHOT) => {
     // render a new <p> element
     const renderElements = async (artifacts, section, item) => {
       const newPara = document.createElement("p");
-      if ((artifacts[item] === "ATK") && (artifacts[item+1] >= '0')) {
+      const regex = new RegExp("^ATK$")
+      if (artifacts[item].match(regex)) {
         dmgStats.atk = artifacts[item + 1];
         newPara.textContent = `${artifacts[item + 1]}`;
       } // if

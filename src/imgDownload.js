@@ -15,7 +15,19 @@ export const userImage = () => {
         submitBtn().addEventListener('click', () => {
             const recentImage = sessionStorage.getItem('artifact');
             if (recentImage) {
-                document.querySelector('#img-preview').setAttribute("src", recentImage);
+                const img = new Image();
+                const canvas = document.getElementById('img-preview');
+                const context = canvas.getContext('2d');
+                context.clearRect(0, 0, 640, 360);
+                img.src = recentImage;
+                img.onload = () => {
+                    // get the scale
+                    var scale = Math.min(canvas.width / img.width, canvas.height / img.height);
+                    // get the top left position of the image
+                    var x = (canvas.width / 2) - (img.width / 2) * scale;
+                    var y = (canvas.height / 2) - (img.height / 2) * scale;
+                    context.drawImage(img, x, y, img.width * scale, img.height * scale);
+                }
             } // if
         });
     }// async()
