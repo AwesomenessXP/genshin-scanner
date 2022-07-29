@@ -14,9 +14,24 @@ export const artifactPiece = (SCREENSHOT) => {
   // GET the data from OCR API
   // use fetch api to request data
   const extractText = async () => {
-    const reqURL = `https://api.ocr.space/parse/imageurl?apikey=${APIKEY}&url=${SCREENSHOT}&filetype=png&OCREngine=2`;
+    const reqURL = `https://api.ocr.space/parse/image`;
     try {
-      const response = await fetch(reqURL);
+      var myHeaders = new Headers();
+      myHeaders.append("apikey", `${APIKEY}`);
+
+      var formdata = new FormData();
+      formdata.append("language", "eng");
+      formdata.append("base64Image", `${SCREENSHOT}`);
+      formdata.append("OCREngine", 2);
+
+      var requestOptions = {
+        method: 'POST',
+        headers: myHeaders,
+        body: formdata,
+        redirect: 'follow'
+      };
+
+      const response = await fetch(reqURL, requestOptions)
       const genshinData = await response.json();
       populateHTML(genshinData);
       console.log(genshinData);

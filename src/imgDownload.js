@@ -7,22 +7,21 @@ export const userImage = () => {
         screenshot.addEventListener('change', function () {
             const reader = new FileReader(); // converts image to data URL
             reader.addEventListener('load', () => {
-                console.log(reader.result);
                 sessionStorage.setItem('artifact', reader.result);
             });
             reader.readAsDataURL(this.files[0]); // result will be in binary
+            // return URL
         });
     }
 
     // retrieve the image from session storage, then send to user
     const getImg = () => {
-        const screenshotURL = submitBtn.addEventListener('click', () => {
+        submitBtn.addEventListener('click', () => {
             const recentImage = sessionStorage.getItem('artifact');
             if (recentImage) {
                 document.querySelector('#img-preview').setAttribute("src", recentImage);
-            }
+            } // if
         });
-        return screenshotURL;
     }
 
     return {
