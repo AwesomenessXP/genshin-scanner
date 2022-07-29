@@ -46,11 +46,18 @@ I'll be using an OCR API to make an app that scans an uploaded screenshot of you
   - also learned that `^` means to look for an expression at the beginning of a string
 - using an IIFE (immediately invoked function expression) made the API request faster
 
+# Challenges:
+
+- sending images from local computer to OCR API (only took me like 8 hours to fix lol)
+  - FIX: 
+    - I wasn't retrieving the images from session storage
+    - used `url` instead of `base64Image` parameter when making a `POST` request
+
 # Resources to help me:
 
 - [OCR API for parsing images/pdf into a JSON format](https://ocr.space/ocrapi#ocrengine)
 - [How to upload images with vanilla JS](https://blog.logrocket.com/how-to-build-file-upload-service-vanilla-javascript/#set-up-the-node-js-server)
-- [Using session storage so the user can upload multiple files](https://www.section.io/engineering-education/how-and-when-to-apply-session-storage-with-javascript/)
+- [Using session storage](https://morioh.com/p/06bf3525362f)
 - [For cropping images](https://pixelixe.com/docs/image-processing/crop-image-api.html)
 - [Uploading images to server using Fetch API](https://www.youtube.com/watch?v=e13T3O0Iyvc)
 - [For `POST` calls to get JSON of data using Fetch API](https://www.youtube.com/watch?v=TTf0mMl0Sc4&list=WL&index=2)

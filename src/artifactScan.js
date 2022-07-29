@@ -5,10 +5,10 @@ export const artifactPiece = (SCREENSHOT) => {
   // we will return this object to be used by other files
   let dmgStats = {
     atk: null,
+    atkPercent: null,
     critDmg: null,
     critRate: null,
     elemMastery: null,
-    atkPercent: null,
   };// dmgStats{}
 
   // GET the data from OCR API
