@@ -1,10 +1,23 @@
-import APIKEY from "./apiKey.js";
-import { populateHTML } from "./renderToScreen.js";
+import APIKEY from "../apiKey.js";
+import { populateHTML } from "./processText/renderToScreen.js";
 
 export const artifactPiece = (SCREENSHOT) => {
   // ------------------------------------- PUBLIC ATTRIBUTES ------------------------------------------------------------
   const dmgStats = {
-    mainATK: null,
+    mainStats: {
+      ATK: null,
+      ATKPCNT: null,
+      CRITDMG: null,
+      CRITRATE: null,
+      EM: null,
+      ANEMO: null,
+      CRYO: null,
+      ELECTRO: null,
+      GEO: null,
+      HYDRO: null,
+      PYRO: null,
+      DENDRO: null,
+    },
     subStats: {
       atk: null,
       atkPercent: null,
@@ -28,7 +41,7 @@ export const artifactPiece = (SCREENSHOT) => {
       formdata.append("base64Image", `${SCREENSHOT}`);
       formdata.append("OCREngine", 2);
 
-      var requestOptions = {
+      var requestOptions = { // send this to the API
         method: 'POST',
         headers: myHeaders,
         body: formdata,

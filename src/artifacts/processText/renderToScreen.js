@@ -18,7 +18,7 @@ const renderElements = async (artifacts, section, item, dmgStats) => {
     const newPara = document.createElement("p");
     const regex = new RegExp("^ATK$");
     if (artifacts[item].match(regex)) {
-			dmgStats.mainATK = artifacts[item + 1];
+			dmgStats.mainStats.ATK = artifacts[item + 1];
 			newPara.textContent = `Main stat: ${artifacts[item]}: ${artifacts[item + 1]}`;
     } // if
     else {

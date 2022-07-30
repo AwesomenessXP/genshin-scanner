@@ -1,5 +1,5 @@
-import { artifactPiece } from "./artifactScan.js";
-import { userImage } from "./imgDownload.js";
+import { artifactPiece } from "./artifacts/artifactScan.js";
+import { userImage } from "./sessionStorage/imgDownload.js";
 import './styles.css';
 import { theme } from "./toggleMode.js";
 
