@@ -1,7 +1,3 @@
-* {
-    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
-}
-
 :root.dark {
     --text-color: white;
     --background: #0D1117;
@@ -12,6 +8,10 @@
     --text-color: black;
     --background: white;
     --canvas-background: rgba(128, 128, 128, 0.199);
+}
+
+* {
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
 }
 
 body {

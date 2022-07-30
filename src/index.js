@@ -3,6 +3,7 @@ import { userImage } from "./imgDownload.js";
 import './styles.css';
 import { theme } from "./toggleMode.js";
 
+document.documentElement.className = "dark";
 document.querySelector('.mode-toggle').addEventListener('click', theme);
 document.addEventListener('DOMContentLoaded', init);
 
