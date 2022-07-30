@@ -18,7 +18,6 @@ function init() {
 		if (getImg) {
 				const gladiatorPiece = artifactPiece(getImg);
 				gladiatorPiece.extractText();
-				console.log('done');
 				console.log(gladiatorPiece.dmgStats);
 		}// if
 		else {

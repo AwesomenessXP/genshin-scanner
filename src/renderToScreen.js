@@ -14,7 +14,7 @@ export const populateHTML = async (scannedTextObj, dmgStats) => {
 } // populateHTML()
 
 // render a new <p> element
-export const renderElements = async (artifacts, section, item, dmgStats) => {
+const renderElements = async (artifacts, section, item, dmgStats) => {
     const newPara = document.createElement("p");
     const regex = new RegExp("^ATK$");
     if (artifacts[item].match(regex)) {

@@ -3,7 +3,7 @@ import { populateHTML } from "./renderToScreen.js";
 
 export const artifactPiece = (SCREENSHOT) => {
   // ------------------------------------- PUBLIC ATTRIBUTES ------------------------------------------------------------
-  let dmgStats = {
+  const dmgStats = {
     mainATK: null,
     subStats: {
       atk: null,
@@ -43,11 +43,11 @@ export const artifactPiece = (SCREENSHOT) => {
       populateHTML(genshinData, dmgStats);
       console.log(genshinData);
     } catch (error) {
-      console.log(error);
-      const errorNotif = document.createElement('p');
-      document.body.appendChild(errorNotif);
-      errorNotif.textContent = error;
-      document.body.append(document.createElement("hr"));
+        console.log(error);
+        const errorNotif = document.createElement('p');
+        document.body.appendChild(errorNotif);
+        errorNotif.textContent = error;
+        document.body.append(document.createElement("hr"));
     }
   } // artifactPiece()
 

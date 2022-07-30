@@ -17,11 +17,18 @@ export function validateDmgStats(stat, dmgStats) {
     extractNumber(stat, dmgStats);
     return true;
   }// if
+  return false;
 } // validatedmgStats()
 
 // removes 'CRIT RATE' or 'CRIT DMG' or 'ATK' from the string
-export const extractNumber = (stat, dmgStats) => {
-  (regexStats().regex.test(stat)) ? dmgStats.subStats.critRate = stat.replace('CRIT Rate+', "") : null;
-  (regexStats().critDmg.test(stat)) ? dmgStats.subStats.critDmg = stat.replace('CRIT DMG+', "") : null;
-  (regexStats().atkPcnt.test(stat)) ? dmgStats.subStats.atkPercent = stat.replace('ATK+', "") : null;
+const extractNumber = (stat, dmgStats) => {
+  (regexStats().regex.test(stat)) ?
+    dmgStats.subStats.critRate = stat.replace('CRIT Rate+', "")
+      .replace('%', ''): null;
+  (regexStats().critDmg.test(stat)) ?
+    dmgStats.subStats.critDmg = stat.replace('CRIT DMG+', "")
+      .replace('%', ''): null;
+  (regexStats().atkPcnt.test(stat)) ?
+    dmgStats.subStats.atkPercent = stat.replace('ATK+', "")
+      .replace('%', ''): null;
 } // extractNum()
