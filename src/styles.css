@@ -1,7 +1,24 @@
-:root {
-    --main-font: Poppins;
+* {
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
 }
 
-* {
-    font-family:Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+:root.dark {
+    --text-color: white;
+    --background: #0D1117;
+    --canvas-background: rgba(247, 247, 247, 0.37);
+}
+
+:root.light {
+    --text-color: black;
+    --background: white;
+    --canvas-background: rgba(128, 128, 128, 0.199);
+}
+
+body {
+    background-color: var(--background);
+    color: var(--text-color);
+}
+
+canvas {
+    background-color: var(--canvas-background);
 }

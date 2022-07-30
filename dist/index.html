@@ -6,18 +6,24 @@
     <title>Genshin Impact Artifact Scanner</title>
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="styles.css">
     <script defer="defer" src="index.bundle.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
     href="https://fonts.googleapis.com/css2?family=Big+Shoulders+Stencil+Text:wght@400;700;900&family=Poppins:wght@400;700;900&display=swap"/>
-    <link rel="stylesheet" href="styles.css">
   </head>
   <body>
 
     <h1>Genshin Impact Artifact Scanner</h1>
 
+    <button class="mode-toggle">Toggle mode</button>
+
     <div>
       <label for="screenshot">Upload your screenshot: </label>
-      <input type="file" id="screenshot" accept="image/*">
+      <div>
+        <input type="file" id="screenshot" accept="image/*">
+      </div>
     </div>
     <div>
       <button id="submit">Submit</button>

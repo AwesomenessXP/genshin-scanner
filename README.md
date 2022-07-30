@@ -59,6 +59,7 @@ I'll be using an OCR API to make an app that scans an uploaded screenshot of you
 - [For cropping images](https://pixelixe.com/docs/image-processing/crop-image-api.html)
 - [Uploading images to server using Fetch API](https://www.youtube.com/watch?v=e13T3O0Iyvc)
 - [For `POST` calls to get JSON of data using Fetch API](https://www.youtube.com/watch?v=TTf0mMl0Sc4&list=WL&index=2)
+- [Regular expressions for decimal numbers](https://regexland.com/regex-decimal-numbers/#:~:text=A%20regular%20expression%20for%20a,optional%20plus%20or%20minus%20sign.)
 
 - for uploading index.html to GH Pages if it is in a subdirectory:
   - `git add dist`

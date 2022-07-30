@@ -4,17 +4,28 @@ export const artifactPiece = (SCREENSHOT) => {
   // ------------------------------------- PUBLIC ATTRIBUTES ------------------------------------------------------------
   // we will return this object to be used by other files
   let dmgStats = {
-    atk: null,
-    atkPercent: null,
-    critDmg: null,
-    critRate: null,
-    elemMastery: null,
+    mainATK: null,
+    subStats: {
+      atk: null,
+      atkPercent: null,
+      critDmg: null,
+      critRate: null,
+      elemMastery: null,
+    }
   };// dmgStats{}
+
+  const regexStats = () => {
+    const regex = new RegExp("^CRIT Rate[+-]?([0-9]+\.?[0-9]*)\%$");
+    const critDmg = new RegExp("^CRIT DMG[+-]?([0-9]+\.?[0-9]*)\%$");
+    const em = new RegExp("^Elemental Mastery[+-]?([0-9]+\.?[0-9]*)\%$");
+    const flatATK = new RegExp("^ATK[+-]?[0-9]*$");
+    const atkPcnt = new RegExp("^ATK[+-]?([0-9]+\.?[0-9]*)\%$");
+  }
 
   // GET the data from OCR API
   // use fetch api to request data
   const extractText = async () => {
-    const error = 'ERROR: unable to scan text!';
+    const error = 'ERROR: unable to process text!';
     const reqURL = `https://api.ocr.space/parse/image`;
     try {
       var myHeaders = new Headers();
@@ -65,9 +76,9 @@ export const artifactPiece = (SCREENSHOT) => {
     // render a new <p> element
     const renderElements = async (artifacts, section, item) => {
       const newPara = document.createElement("p");
-      const regex = new RegExp("^ATK$")
+      const regex = new RegExp("^ATK$");
       if (artifacts[item].match(regex)) {
-        dmgStats.atk = artifacts[item + 1];
+        dmgStats.mainATK = artifacts[item + 1];
         newPara.textContent = `${artifacts[item + 1]}`;
       } // if
       else {
@@ -81,34 +92,33 @@ export const artifactPiece = (SCREENSHOT) => {
   // Validate the text that was parsed
   const validateDmgStats = (stat) => {
     const artifacts = new Map().set("Gladiator's Destiny", "Emblem"); // TODO: WILL USE LATER!!
-    const regex = new RegExp("^CRIT Rate");
-    const critDmg = new RegExp("^CRIT DMG");
-    const em = new RegExp("^Elemental Mastery");
     
-    if (regex.test(stat) || critDmg.test(stat)) {
-      cleanDmgStats(regex, critDmg, stat);
+    if (em.test(stat)) {
+      dmgStats.subStats.elemMastery = stat.replace('Elemental Mastery+', '');
       return true;
-    } // if
-    else if (em.test(stat)) {
-      dmgStats.elemMastery = stat; // if / else
+    }// if
+    else if (flatATK.test(stat)) {
+      dmgStats.subStats.atk = stat.replace('ATK+', '');
       return true;
-    } // else if
-    return false;
+    }// else if
+    else if (regexStats.regex.test(stat) ||
+            regexStats.critDmg.test(stat) ||
+            regexStats.critRate.test(stat)) {
+      extractNumber(stat)
+      return true;
+    }// if
   } // validatedmgStats()
 
-  // removes 'CRIT RATE' or 'CRIT DMG' from the string
-  const cleanDmgStats = async (regex, critDmg, stat) => {
-    if (regex.test(stat)) {
-      dmgStats.critRate = stat
-        .replace("CRIT Rate+", "")
-        .replace("%", "");
-    } // if
-    if (critDmg.test(stat)) {
-      dmgStats.critDmg = stat
-        .replace("CRIT DMG+", "")
-        .replace("%", ""); // if
-    } // if
-  } // cleandmgStats()
+  // removes 'CRIT RATE' or 'CRIT DMG' or 'ATK' from the string
+  const extractNumber = async (stat) => {
+    // const regex = new RegExp("^CRIT Rate[+-]?([0-9]+\.?[0-9]*)\%$");
+    // const critDmg = new RegExp("^CRIT DMG[+-]?([0-9]+\.?[0-9]*)\%$");
+    // const atkPcnt = new RegExp("^ATK[+-]?([0-9]+\.?[0-9]*)\%$");
+
+    (regexStats.regex.test(stat)) ? dmgStats.subStats.critRate = stat.replace('CRIT Rate+', "") : null;
+    (regexStats.critDmg.test(stat)) ? dmgStats.subStats.critDmg = stat.replace('CRIT DMG+', "") : null;
+    (regexStats.atkPcnt.test(stat)) ? dmgStats.subStats.atkPercent = stat.replace('ATK+', "") : null;
+  } // extractNum()
 
   return {
     extractText,
