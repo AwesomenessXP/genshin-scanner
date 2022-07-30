@@ -45,6 +45,7 @@ I'll be using an OCR API to make an app that scans an uploaded screenshot of you
 - Learned that `regex` HAS to be used before making instances of `RegExp`
   - also learned that `^` means to look for an expression at the beginning of a string
 - using an IIFE (immediately invoked function expression) made the API request faster
+- you can use an alias for the function/variable you exported
 
 # Challenges:
 - My biggest challenge with this project was uploading the images to the API because I wanted to test with local files. Then I realized I could convert the images to base 64 string and send them to API and thats where all my problems were, but I realized I was overthinking the whole time. I wasn't uploading base 64 strings the whole time, but undefined objects. Idk how to make the backend for Node JS so I just used session storage to temporarily hold the images, then retrieve them when I needed to scan them

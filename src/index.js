@@ -16,14 +16,15 @@ function init() {
 	scanBtn.addEventListener('click', () => {
 		let getImg = sessionStorage.getItem('artifact');
 		if (getImg) {
-				const gladiatorPiece = artifactPiece(getImg);
-				gladiatorPiece.extractText();
-				console.log(gladiatorPiece.dmgStats);
+			const gladiatorPiece = artifactPiece(getImg);
+			gladiatorPiece.extractText();
+			console.log(gladiatorPiece.dmgStats);
 		}// if
 		else {
-				const errorMessage = document.createElement('p');
-				errorMessage.textContent = "ERROR: unable to process text!";
-				document.body.appendChild(errorMessage);
+			const errorMessage = document.createElement('p');
+			errorMessage.textContent = "ERROR: unable to process text!";
+			document.body.appendChild(errorMessage);
+			document.body.append(document.createElement("hr"));
 		}  
 	});
 }
