@@ -17,8 +17,9 @@ function init() {
         let getImg = sessionStorage.getItem('artifact');
         if (getImg) {
             const gladiatorPiece = artifactPiece(getImg);
-            gladiatorPiece.extractText();
-            console.log(gladiatorPiece.dmgStats);
+          gladiatorPiece.extractText();
+          console.log('done');
+            // console.log(gladiatorPiece.dmgStats);
         }// if
         else {
             const errorMessage = document.createElement('p');
