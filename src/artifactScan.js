@@ -3,6 +3,17 @@ import { populateHTML } from "./renderToScreen.js";
 
 export const artifactPiece = (SCREENSHOT) => {
   // ------------------------------------- PUBLIC ATTRIBUTES ------------------------------------------------------------
+  let dmgStats = {
+    mainATK: null,
+    subStats: {
+      atk: null,
+      atkPercent: null,
+      critDmg: null,
+      critRate: null,
+      elemMastery: null,
+    }
+  };// dmgStats{}
+
   // GET the data from OCR API
   // use fetch api to request data
   const extractText = async () => {
@@ -29,7 +40,7 @@ export const artifactPiece = (SCREENSHOT) => {
       if (genshinData.ParsedResults[0].ParsedText === '' || genshinData.IsErroredOnProcessing) {
         throw error;
       }
-      populateHTML(genshinData);
+      populateHTML(genshinData, dmgStats);
       console.log(genshinData);
     } catch (error) {
       console.log(error);
@@ -42,6 +53,6 @@ export const artifactPiece = (SCREENSHOT) => {
 
   return {
     extractText,
-    // dmgStats,
+    dmgStats,
   };
 };

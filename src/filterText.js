@@ -1,28 +1,27 @@
 import { regexStats } from './regexStats.js';
-import { dmgStats } from './dmgStats.js';
 
 // Validate the text that was parsed
-export function validateDmgStats(stat) {
+export function validateDmgStats(stat, dmgStats) {
   const artifacts = new Map().set("Gladiator's Destiny", "Emblem"); // TODO: WILL USE LATER!!
   if (regexStats().em.test(stat)) {
-    dmgStats().subStats.elemMastery = stat.replace('Elemental Mastery+', '');
+    dmgStats.subStats.elemMastery = stat.replace('Elemental Mastery+', '');
     return true;
   }// if
   else if (regexStats().flatATK.test(stat)) {
-    dmgStats().subStats.atk = stat.replace('ATK+', '');
+    dmgStats.subStats.atk = stat.replace('ATK+', '');
     return true;
   }// else if
   else if (regexStats().regex.test(stat) ||
          regexStats().critDmg.test(stat) ||
         regexStats().atkPcnt.test(stat)) {
-    extractNumber(stat);
+    extractNumber(stat, dmgStats);
     return true;
   }// if
 } // validatedmgStats()
 
 // removes 'CRIT RATE' or 'CRIT DMG' or 'ATK' from the string
-export const extractNumber = async (stat) => {
-    (regexStats().regex.test(stat)) ? dmgStats().subStats.critRate = stat.replace('CRIT Rate+', "") : null;
-    (regexStats().critDmg.test(stat)) ? dmgStats().subStats.critDmg = stat.replace('CRIT DMG+', "") : null;
-    (regexStats().atkPcnt.test(stat)) ? dmgStats().subStats.atkPercent = stat.replace('ATK+', "") : null;
-  } // extractNum()
+export const extractNumber = (stat, dmgStats) => {
+  (regexStats().regex.test(stat)) ? dmgStats.subStats.critRate = stat.replace('CRIT Rate+', "") : null;
+  (regexStats().critDmg.test(stat)) ? dmgStats.subStats.critDmg = stat.replace('CRIT DMG+', "") : null;
+  (regexStats().atkPcnt.test(stat)) ? dmgStats.subStats.atkPercent = stat.replace('ATK+', "") : null;
+} // extractNum()
