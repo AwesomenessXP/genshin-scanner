@@ -17,11 +17,12 @@ function init() {
 	scanBtn.addEventListener('click', () => {
 		let getImg = sessionStorage.getItem('artifact');
 		if (getImg) {
-			const gladiatorPiece = artifactPiece(getImg);
+			const gladiatorPiece = artifactPiece(getImg); // getImg is a base64 string in session storage
 			gladiatorPiece.extractText();
 			console.log(gladiatorPiece.dmgStats);
 		}// if
 		else {
+			// print error to the screen
 			const errorMessage = document.createElement('p');
 			errorMessage.textContent = "ERROR: unable to process text!";
 			document.body.appendChild(errorMessage);

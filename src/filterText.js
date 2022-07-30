@@ -11,7 +11,7 @@ export function validateDmgStats(stat, dmgStats) {
     dmgStats.subStats.atk = stat.replace('ATK+', '');
     return true;
   }// else if
-  else if (regexStats().regex.test(stat) ||
+  else if (regexStats().critRate.test(stat) ||
          regexStats().critDmg.test(stat) ||
         regexStats().atkPcnt.test(stat)) {
     extractNumber(stat, dmgStats);
@@ -22,7 +22,7 @@ export function validateDmgStats(stat, dmgStats) {
 
 // removes 'CRIT RATE' or 'CRIT DMG' or 'ATK' from the string
 const extractNumber = (stat, dmgStats) => {
-  (regexStats().regex.test(stat)) ?
+  (regexStats().critRate.test(stat)) ?
     dmgStats.subStats.critRate = stat.replace('CRIT Rate+', "")
       .replace('%', ''): null;
   (regexStats().critDmg.test(stat)) ?
