@@ -20,6 +20,13 @@ export const artifactPiece = (SCREENSHOT) => {
     const em = new RegExp("^Elemental Mastery[+-]?([0-9]+\.?[0-9]*)\%$");
     const flatATK = new RegExp("^ATK[+-]?[0-9]*$");
     const atkPcnt = new RegExp("^ATK[+-]?([0-9]+\.?[0-9]*)\%$");
+    return {
+      regex,
+      critDmg,
+      em,
+      flatATK,
+      atkPcnt,
+    }
   }
 
   // GET the data from OCR API
@@ -55,6 +62,7 @@ export const artifactPiece = (SCREENSHOT) => {
       const errorNotif = document.createElement('p');
       document.body.appendChild(errorNotif);
       errorNotif.textContent = error;
+      document.body.append(document.createElement("hr"));
     }
   } // artifactPiece()
     
@@ -79,7 +87,7 @@ export const artifactPiece = (SCREENSHOT) => {
       const regex = new RegExp("^ATK$");
       if (artifacts[item].match(regex)) {
         dmgStats.mainATK = artifacts[item + 1];
-        newPara.textContent = `${artifacts[item + 1]}`;
+        newPara.textContent = `Main stat: ${artifacts[item]}: ${artifacts[item + 1]}`;
       } // if
       else {
         (validateDmgStats(artifacts[item])) ?
@@ -92,18 +100,17 @@ export const artifactPiece = (SCREENSHOT) => {
   // Validate the text that was parsed
   const validateDmgStats = (stat) => {
     const artifacts = new Map().set("Gladiator's Destiny", "Emblem"); // TODO: WILL USE LATER!!
-    
-    if (em.test(stat)) {
+    if (regexStats().em.test(stat)) {
       dmgStats.subStats.elemMastery = stat.replace('Elemental Mastery+', '');
       return true;
     }// if
-    else if (flatATK.test(stat)) {
+    else if (regexStats().flatATK.test(stat)) {
       dmgStats.subStats.atk = stat.replace('ATK+', '');
       return true;
     }// else if
-    else if (regexStats.regex.test(stat) ||
-            regexStats.critDmg.test(stat) ||
-            regexStats.critRate.test(stat)) {
+    else if (regexStats().regex.test(stat) ||
+            regexStats().critDmg.test(stat) ||
+            regexStats().atkPcnt.test(stat)) {
       extractNumber(stat)
       return true;
     }// if
@@ -111,13 +118,9 @@ export const artifactPiece = (SCREENSHOT) => {
 
   // removes 'CRIT RATE' or 'CRIT DMG' or 'ATK' from the string
   const extractNumber = async (stat) => {
-    // const regex = new RegExp("^CRIT Rate[+-]?([0-9]+\.?[0-9]*)\%$");
-    // const critDmg = new RegExp("^CRIT DMG[+-]?([0-9]+\.?[0-9]*)\%$");
-    // const atkPcnt = new RegExp("^ATK[+-]?([0-9]+\.?[0-9]*)\%$");
-
-    (regexStats.regex.test(stat)) ? dmgStats.subStats.critRate = stat.replace('CRIT Rate+', "") : null;
-    (regexStats.critDmg.test(stat)) ? dmgStats.subStats.critDmg = stat.replace('CRIT DMG+', "") : null;
-    (regexStats.atkPcnt.test(stat)) ? dmgStats.subStats.atkPercent = stat.replace('ATK+', "") : null;
+    (regexStats().regex.test(stat)) ? dmgStats.subStats.critRate = stat.replace('CRIT Rate+', "") : null;
+    (regexStats().critDmg.test(stat)) ? dmgStats.subStats.critDmg = stat.replace('CRIT DMG+', "") : null;
+    (regexStats().atkPcnt.test(stat)) ? dmgStats.subStats.atkPercent = stat.replace('ATK+', "") : null;
   } // extractNum()
 
   return {
