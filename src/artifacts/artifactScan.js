@@ -1,5 +1,6 @@
 import APIKEY from "../apiKey.js";
 import { populateHTML } from "./processText/renderToScreen.js";
+import { customErrorMsg } from "../DOM/errorMsg.js";
 
 export const artifactPiece = (SCREENSHOT) => {
   // ------------------------------------- PUBLIC ATTRIBUTES ------------------------------------------------------------
@@ -51,17 +52,13 @@ export const artifactPiece = (SCREENSHOT) => {
       const response = await fetch(reqURL, requestOptions)
       const genshinData = await response.json();
       if (genshinData.ParsedResults[0].ParsedText === '' || genshinData.IsErroredOnProcessing) {
-        throw error;
+        throw "Unable to process image!";
       }
       populateHTML(genshinData, dmgStats);
       console.log(genshinData);
     } catch (error) {
-        console.log(error);
-        const errorNotif = document.createElement('p');
-        document.body.appendChild(errorNotif);
-        errorNotif.textContent = error;
-        document.body.append(document.createElement("hr"));
-    }
+      customErrorMsg(error);
+    } // catch()
   } // artifactPiece()
 
   return {

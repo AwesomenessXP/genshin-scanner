@@ -2,6 +2,7 @@ import { artifactPiece } from "./artifacts/artifactScan.js";
 import { userImage } from "./sessionStorage/imgDownload.js";
 import './styles.css';
 import { theme } from "./toggleMode.js";
+import { defaultErrorMsg } from './DOM/errorMsg.js'
 
 document.documentElement.className = "dark";
 document.querySelector('.mode-toggle').addEventListener('click', theme);
@@ -21,12 +22,6 @@ function init() {
 			gladiatorPiece.extractText();
 			console.log(gladiatorPiece.dmgStats);
 		}// if
-		else {
-			// print error to the screen
-			const errorMessage = document.createElement('p');
-			errorMessage.textContent = "ERROR: unable to process text!";
-			document.body.appendChild(errorMessage);
-			document.body.append(document.createElement("hr"));
-		}  
+		else { defaultErrorMsg(); }  
 	});
 }
