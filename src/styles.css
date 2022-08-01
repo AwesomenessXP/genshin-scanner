@@ -110,7 +110,7 @@ ol *{
 }
 
 img {
-    border-radius: var(--edge-radius);
+    border-radius: 5px;
 }
 
 @media (max-width: 1024px) {
