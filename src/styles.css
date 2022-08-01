@@ -64,8 +64,6 @@ nav {
     display: grid;
     grid-template: repeat(1, 1fr) / 1fr;
     gap: 20px;
-    border: 1px solid;
-    border-radius: var(--edge-radius);
 }
 
 button {
