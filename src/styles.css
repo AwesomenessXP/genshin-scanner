@@ -6,7 +6,7 @@
     --btn-text: #0D1117;
     --nav-bg: rgb(27,29,42);
     --edge-radius: 12px;
-    --gradient: linear-gradient(to bottom, #0D1117, rgb(24, 4, 71));
+    --gradient: linear-gradient(to bottom, #0D1117, rgb(80, 64, 116));
 }
 
 :root.light {
@@ -115,7 +115,7 @@ img {
 
 @media (max-width: 1024px) {
     .content {
-        margin: 5vh 0;
+        margin: 3vh 0;
     }
 }
 
