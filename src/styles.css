@@ -2,34 +2,37 @@
     --text-color: white;
     --background: #0C0F1D;
     --canvas-background: rgba(247, 247, 247, 0.37);
-    --btn-color: white;
+    --btn-color: linear-gradient(to right, #8EC5FC, #E0C3FC);
     --btn-text: #0D1117;
     --nav-bg: rgb(27,29,42);
-    --edge-radius: 5px;
+    --edge-radius: 12px;
+    --gradient: linear-gradient(to bottom, #0D1117, rgb(24, 4, 71));
 }
 
 :root.light {
-    --text-color: #0D1117;
+    --text-color: #2430A9;
     --background: white;
     --canvas-background: rgba(128, 128, 128, 0.199);
-    --btn-color: #0D1117;
+    --btn-color: linear-gradient(to right, #3742c2, #53B0D9);
     --btn-text: white;
-    --edge-radius: 5px;
+    --edge-radius: 12px;
+    --gradient: linear-gradient(to bottom, #8EC5FC, #E0C3FC);
+    --nav-bg: rgb(208, 235, 243);
 }
 
 * {
     font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
     margin: 0;
+    overflow-x: hidden;
 }
 
 body {
     color: var(--text-color);
-    background-color: var(--background);
+    background-image: var(--gradient);
+    background-size: 100vw 100vh;
 }
 
 canvas {
-    /* height: auto;
-    width: 64%; */
     width: 100%;
     float: left;
     background-color: var(--canvas-background);
@@ -43,9 +46,16 @@ nav {
     padding: 15px;
     border-bottom: 1px solid;
     background-color: var(--nav-bg);
+    border-color: gray;
+}
+
+nav > button {
+    margin: 15px 0;
 }
 
 .content {
+    font-weight: bold;
+    width: auto;
     margin-top: 15vh;
     display: flex;
     flex-direction: row;
@@ -59,6 +69,7 @@ nav {
 }
 
 .content > .input {
+    width: auto;
     padding: 10px 0;
     margin: 20px;
     display: grid;
@@ -68,13 +79,16 @@ nav {
 
 button {
     color: var(--btn-text);
-    background-color: var(--btn-color);
+    background-image: var(--btn-color);
     border-radius: var(--edge-radius);
     border: none;
     padding: 5px 10px;
+    font-weight: 700;
+    letter-spacing: 3%;
 }
 
 button:hover {
+    opacity: 80%;
     cursor: pointer;
     transform: scale(1.08);
     transition: transform 0.15s ease-out;
@@ -97,5 +111,41 @@ ol *{
 
 img {
     border-radius: var(--edge-radius);
+}
+
+@media (max-width: 1024px) {
+    .content {
+        margin: 5vh 0;
+    }
+}
+
+@media (max-width: 1024px) {
+    body {
+        background-size: 100vw 150vh;
+    }
+}
+
+@media (max-width: 768px) {
+    img {
+        width: 70%;
+        height: auto;
+    }
+}
+
+@media (max-width: 414px) {
+    body {
+        background-size: 100vw 140vh;
+    }
+}
+
+@media (max-width: 390px) {
+    img {
+        width: 80%;
+        height: auto;
+    }
+    
+    body {
+        background-size: 100vw 130vh;
+    }
 }
 
