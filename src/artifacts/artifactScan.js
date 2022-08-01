@@ -57,7 +57,7 @@ export const artifactPiece = (SCREENSHOT) => {
       populateHTML(genshinData, dmgStats);
       console.log(genshinData);
     } catch (error) {
-      customErrorMsg(error);
+      customErrorMsg("Files must be less than 1 MB!!");
     } // catch()
   } // artifactPiece()
 

@@ -6,7 +6,7 @@ export const renderCanvas = () => {
     const img = new Image();
     const canvas = document.getElementById('img-preview');
     const context = canvas.getContext('2d');
-    context.clearRect(0, 0, 640, 360); // 'refresh' canvas by deleting any images in there
+    context.clearRect(0, 0, canvas.width , canvas.height ); // 'refresh' canvas by deleting any images in there
     img.src = recentImage;
     img.onload = () => {
       // get the scale

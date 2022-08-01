@@ -13,28 +13,37 @@
     href="https://fonts.googleapis.com/css2?family=Big+Shoulders+Stencil+Text:wght@400;700;900&family=Poppins:wght@400;700;900&display=swap"/>
   </head>
   <body>
+    <nav>
+      <h1>Genshin Impact Artifact Scanner</h1>
+      <button class="mode-toggle dark">Light/Dark Mode</button>
+    </nav>
 
-    <h1>Genshin Impact Artifact Scanner</h1>
+    <div class="content">
 
-    <div>
-      <label for="screenshot">Upload your screenshot: </label>
-      <div>
-        <input type="file" id="screenshot" accept="image/*">
+      <div class="input">
+        <ol>
+          <li>
+            <p>Upload a screenshot of your build</p>
+            <p>Ex: </p>
+            <img src="raiden_build.jpg" width="360" height="180">
+          </li>
+          <li>
+            <input type="file" id="screenshot" accept="image/*">
+          </li>
+          <li>
+            <button id="submit">Submit</button>
+          </li>
+        </ol>
       </div>
-    </div>
-    <div>
-      <button id="submit">Submit</button>
-    </div>
-    <div>
-      <canvas id="img-preview" src="" alt="Preview" height="360" width="640" style="
-        border: 1px solid rgb(34, 34, 34); border-radius: 5px; background-color: rgba(128, 128, 128, 0.199);"></canvas>
-    </div>
-    <div>
-      <button id="scan-btn">Scan image</button>
-    </div>
-    <br>
-    <br>
-    <button class="mode-toggle dark">Light/Dark Mode</button>
 
+      <div class="canvas">
+        <canvas id="img-preview" src="" alt="Preview" height="360" width="640" style="
+          border: 1px solid rgb(34, 34, 34); border-radius: 5px; background-color: rgba(128, 128, 128, 0.199);"></canvas>
+        <div>
+          <button id="scan-btn" style="padding: 15px">Scan image</button>
+        </div>
+      </div>
+    
+    </div>
   </body>
 </html>

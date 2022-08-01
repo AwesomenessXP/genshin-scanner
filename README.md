@@ -45,6 +45,7 @@ I'll be using an OCR API to make an app that scans an uploaded screenshot of you
 - Learned that `regex` HAS to be used before making instances of `RegExp`
   - also learned that `^` means to look for an expression at the beginning of a string
 - using an IIFE (immediately invoked function expression) made the API request faster
+- breaking down large functions into smaller modules
 - you can use an alias for the function/variable you exported
 
 # Challenges:
@@ -70,3 +71,6 @@ I'll be using an OCR API to make an app that scans an uploaded screenshot of you
 # Features yet to implement
 
 - support for mobile devices, and PS4/PS5 screenshots
+- toggle HP/ER/DEF when displayed
+- backend and database for genshin impact API
+- damage calculator
