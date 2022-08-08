@@ -4,7 +4,7 @@ import { regexStats } from './regexStats.js';
 export function validateDmgStats(stat, dmgStats) {
   const artifacts = new Map().set("Gladiator's Destiny", "Emblem"); // TODO: WILL USE LATER!!
   if (regexStats().em.test(stat)) {
-    dmgStats.subStats.elemMastery = stat.replace('Elemental Mastery+', '');
+    dmgStats.subStats.elemMastery = stat.replace('Elemental Mastery+', "");
     return true;
   }// if
   else if (regexStats().flatATK.test(stat)) {
