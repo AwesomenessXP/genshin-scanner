@@ -8,7 +8,7 @@ export const populateHTML = async (scannedTextObj, dmgStats) => {
 		const artifacts = await scannedText.split("\n");
 		const section = document.querySelector("body");
 		for (let item = 0; item < artifacts.length; item++) {
-			renderElements(artifacts, section, item, dmgStats);
+			renderElements(artifacts, section, item, dmgStats); // pass in parsed text, body of HTML, element (ex: ATK+14), and dmgStats object
 		} // for
 		document.body.append(document.createElement("hr"));
 	} catch (error) {
