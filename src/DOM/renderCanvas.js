@@ -1,5 +1,9 @@
 import { defaultErrorMsg } from "./errorMsg";
 
+/** 
+ * returns nothing
+ * image that is rendered SCALES dynamically with the canvas, fits content
+*/
 export const renderCanvas = () => {
   const recentImage = sessionStorage.getItem('artifact');
   if (recentImage) {

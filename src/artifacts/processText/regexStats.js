@@ -1,3 +1,4 @@
+// returns regular expressions of each artifact stat type
 export const regexStats = () => {
     const critRate = new RegExp("^CRIT Rate[+-]?([0-9]+\.?[0-9]*)\%$");
     const critDmg = new RegExp("^CRIT DMG[+-]?([0-9]+\.?[0-9]*)\%$");

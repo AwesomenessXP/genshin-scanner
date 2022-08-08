@@ -1,7 +1,10 @@
 import { validateDmgStats } from './filterText.js';
 import { customErrorMsg } from '../../DOM/errorMsg.js';
 
-// populate the HTML file
+/**
+ * args: (parsed text obj), (obj w/artifact data)
+ * populates the HTML, catch error if no text
+ */
 export const populateHTML = async (scannedTextObj, dmgStats) => {
 	try {
 		const scannedText = scannedTextObj.ParsedResults[0].ParsedText;
@@ -18,17 +21,21 @@ export const populateHTML = async (scannedTextObj, dmgStats) => {
 } // populateHTML()
 
 // render a new <p> element
+/**
+ * args: (array of parsed text), (body query selector), (string from array), (obj)
+ * appends new elements to the screen
+ */
 const renderElements = async (artifacts, section, item, dmgStats) => {
 	const newPara = document.createElement("p");
-	const regex = new RegExp("^ATK$");
-	if (artifacts[item].match(regex)) {
+	const regex = new RegExp("^ATK$"); // expand on this later, include other main stats
+	if (artifacts[item].match(regex)) { // if this is a main stat
 		dmgStats.mainStats.ATK = artifacts[item + 1];
 		newPara.textContent = `Main stat: ${artifacts[item]}: ${artifacts[item + 1]}`;
 	} // if
-	else {
+	else { // if this is a substat
 		(validateDmgStats(artifacts[item], dmgStats)) ?
-			(newPara.textContent = `${artifacts[item]}`) // if
-			: console.log(`This stat is not factored in calculating damage`); // else
+			(newPara.textContent = `${artifacts[item]}`) // if valid, display content
+			: console.log(`This stat is not factored in calculating damage`); // else, log invalid result
 	} // else
 	section.appendChild(newPara);
 } // renderElements()
