@@ -25,3 +25,7 @@ function init() {
 		else { defaultErrorMsg(); }  
 	});
 }
+
+window.addEventListener('beforeunload', () => {
+	sessionStorage.clear();
+});

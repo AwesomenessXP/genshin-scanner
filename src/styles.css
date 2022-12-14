@@ -11,7 +11,7 @@
 
 :root.light {
     --text-color: #2430A9;
-    --background: white;
+    --background: rgb(221, 238, 243);
     --canvas-background: rgba(128, 128, 128, 0.199);
     --btn-color: linear-gradient(to right, #3742c2, #53B0D9);
     --btn-text: white;
@@ -28,8 +28,8 @@
 
 body {
     color: var(--text-color);
-    background-image: var(--gradient);
-    background-size: 100vw 100vh;
+    background-color:var(--background);
+    background-size: 100vw;
 }
 
 canvas {
@@ -121,7 +121,7 @@ img {
 
 @media (max-width: 1024px) {
     body {
-        background-size: 100vw 150vh;
+        background-size: 100vw;
     }
 }
 
@@ -134,7 +134,7 @@ img {
 
 @media (max-width: 414px) {
     body {
-        background-size: 100vw 140vh;
+        background-size: 100vw;
     }
 }
 
@@ -145,7 +145,7 @@ img {
     }
     
     body {
-        background-size: 100vw 130vh;
+        background-size: 100vw;
     }
 }
 
