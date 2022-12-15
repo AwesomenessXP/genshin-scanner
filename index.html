@@ -37,12 +37,22 @@
       </div>
 
       <div class="canvas">
-        <canvas id="img-preview" src="" alt="Preview" height="360" width="640" style="
-          border: 1px solid rgb(34, 34, 34); border-radius: 5px; background-color: rgba(128, 128, 128, 0.199);"></canvas>
+        <canvas id="img-preview" 
+          src="" 
+          alt="Preview" 
+          height="360" 
+          width="640" 
+          style="border: 1px solid rgb(34, 34, 34); 
+            border-radius: 5px; 
+            background-color: rgba(128, 128, 128, 0.199);"
+          ></canvas>
+        <canvas id='blank' style='display:none'></canvas>
         <div>
           <button id="scan-btn" style="padding: 15px">Scan image</button>
         </div>
       </div>
+
+      <div id="output"></div>
 
     </div>
 
