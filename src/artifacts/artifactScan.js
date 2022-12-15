@@ -1,39 +1,38 @@
 import APIKEY from "../apiKey.js";
-import { dmgStats  } from '../artifacts/processText/dmgStats.js';
-import { regexStats,  } from '../artifacts/processText/regexStats.js';
+import { dmgStats } from '../artifacts/processText/dmgStats.js';
+import { regexStats } from '../artifacts/processText/regexStats.js';
 import { customErrorMsg } from "../DOM/errorMsg.js";
 
-export const artifactPiece = (SCREENSHOT) => {
-  const outputTag = document.getElementById('output');
-  const reqURL = `https://api.ocr.space/parse/image`;
-
-  // GET the data from OCR API
-  // use fetch api to request data
-  const extractText = async () => {
-    try {
-      let requestOptions = metadata(SCREENSHOT);
-      const response = await fetch(reqURL, requestOptions)
-      const genshinData = await response.json();
-      if (genshinData.ParsedResults[0].ParsedText === '' || genshinData.IsErroredOnProcessing) {
-        throw "Unable to process image!";
-      }
-
-      // only output the stats if the element is empty
-      if (!outputTag.firstChild) {
-        populateHTML(genshinData, dmgStats);
-      }
-      console.log(genshinData);
-    } catch (error) {
-      console.log(error);
-      customErrorMsg("Unable to scan");
-    } // catch()
-  } // artifactPiece()
-
+export const artifactPiece = () => {
   return {
     extractText,
     dmgStats,
   };
 };
+
+// GET the data from OCR API
+// use fetch api to request data
+async function extractText (SCREENSHOT) {
+  const outputTag = document.getElementById('output');
+  const reqURL = `https://api.ocr.space/parse/image`;
+  try {
+    let requestOptions = metadata(SCREENSHOT);
+    const response = await fetch(reqURL, requestOptions);
+    const genshinData = await response.json();
+
+    if (genshinData.ParsedResults[0].ParsedText === '' || genshinData.IsErroredOnProcessing) {
+      throw "Unable to process image!";
+    }
+
+    // only output the stats if the element is empty
+    if (!outputTag.firstChild) {
+      populateHTML(genshinData);
+    }
+  } catch (error) {
+    console.log(error);
+    customErrorMsg("Unable to scan");
+  } // catch()
+} // artifactPiece()
 
 function metadata(SCREENSHOT) {
   let myHeaders = new Headers();
@@ -58,12 +57,12 @@ function metadata(SCREENSHOT) {
  * args: (parsed text obj), (obj w/artifact data)
  * populates the HTML, catch error if no text
  */
-const populateHTML = async (scannedTextObj, dmgStats) => {
+async function populateHTML (scannedTextObj) {
 	try {
 		const scannedText = await scannedTextObj.ParsedResults[0].ParsedText;
 		const artifacts = await scannedText.split("\n");
 			for (let item = 0; item < artifacts.length; item++) {
-				renderElements(artifacts, item, dmgStats); // pass in parsed text, body of HTML, element (ex: ATK+14), and dmgStats object
+				renderElements(artifacts, item); // pass in parsed text, body of HTML, element (ex: ATK+14), and dmgStats object
 			} // for
 	} catch (error) {
 		error = "ERROR: unable to render data!";
@@ -76,7 +75,7 @@ const populateHTML = async (scannedTextObj, dmgStats) => {
  * args: (array of parsed text), (body query selector), (string from array), (obj)
  * appends new elements to the screen
  */
-const renderElements = async (artifacts, item, dmgStats) => {
+async function renderElements (artifacts, item) {
 	const newPara = document.createElement("p");
 	const outputTag = document.getElementById('output');
 	newPara.className = "output";
@@ -86,7 +85,7 @@ const renderElements = async (artifacts, item, dmgStats) => {
 		newPara.textContent = `Main stat: ${artifacts[item]}: ${artifacts[item + 1]}`;
 	} // if
 	else { // if this is a substat
-		if (validateDmgStats(artifacts[item], dmgStats)) {
+		if (validateDmgStats(artifacts[item])) {
 			newPara.textContent = `${artifacts[item]}`; // if valid, display content
 		}
 	} // else
@@ -98,7 +97,7 @@ const renderElements = async (artifacts, item, dmgStats) => {
  * args: (string from array of parsed text), (obj w/ artifact data) 
  * returns: true if valid, else false
  */
-function validateDmgStats(stat, dmgStats) {
+function validateDmgStats(stat) {
   const artifacts = new Map().set("Gladiator's Destiny", "Emblem"); // TODO: WILL USE LATER!!
   if (regexStats().em.test(stat)) { // if flat stat
     dmgStats.subStats.elemMastery = stat.replace('Elemental Mastery+', "");
@@ -112,7 +111,7 @@ function validateDmgStats(stat, dmgStats) {
   else if (regexStats().critRate.test(stat) ||
           regexStats().critDmg.test(stat) ||
           regexStats().atkPcnt.test(stat)) {
-    extractNumber(stat, dmgStats);
+    extractNumber(stat);
     return true;
   }// if
   return false;
@@ -123,7 +122,7 @@ function validateDmgStats(stat, dmgStats) {
  * args: (string from parsed text array), (obj w/artifact data)
  * removes strings around the numbers, then saves the numbers in dmgStats object
  */
-const extractNumber = (stat, dmgStats) => {
+function extractNumber (stat) {
   if (regexStats().critRate.test(stat)) {
     dmgStats.subStats.critRate = stat.replace('CRIT Rate+', "")
       .replace('%', '');

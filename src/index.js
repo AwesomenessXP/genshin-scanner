@@ -25,8 +25,8 @@ scanBtn.addEventListener('click', () => {
 	outputTag.style.visibility = "visible";
 	let getImg = sessionStorage.getItem('artifact');
 	if (getImg) {
-		const gladiatorPiece = artifactPiece(getImg); // getImg is a base64 string in session storage
-		gladiatorPiece.extractText();
+		const gladiatorPiece = artifactPiece(); // getImg is a base64 string in session storage
+		gladiatorPiece.extractText(getImg);
 		console.log(gladiatorPiece.dmgStats);
 	}// if
 	else { defaultErrorMsg(); }  
