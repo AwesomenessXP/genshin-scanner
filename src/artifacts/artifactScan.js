@@ -99,18 +99,18 @@ async function renderElements (artifacts, item) {
  */
 function validateDmgStats(stat) {
   const artifacts = new Map().set("Gladiator's Destiny", "Emblem"); // TODO: WILL USE LATER!!
-  if (regExEM.test(stat)) { // if flat stat
+  if (regexStats().em.test(stat)) { // if flat stat
     elemMastery = stat.replace('Elemental Mastery+', "");
     return true;
   }// if
-  else if (regExFlatATK.test(stat)) { // if flat stat
+  else if (regexStats().flatATK.test(stat)) { // if flat stat
     atk = stat.replace('ATK+', '');
     return true;
   }// else if
   // if stat is a percentage:
-  else if (regExCritRate.test(stat) ||
-          regExCritDmg.test(stat) ||
-          regExAtkPcnt.test(stat)) {
+  else if (regexStats().critRate.test(stat) ||
+          regexStats().critDmg.test(stat) ||
+          regexStats().atkPcnt.test(stat)) {
     extractNumber(stat);
     return true;
   }// if
@@ -123,32 +123,23 @@ function validateDmgStats(stat) {
  * removes strings around the numbers, then saves the numbers in dmgStats object
  */
 function extractNumber (stat) {
-  if (regExCritRate.test(stat)) {
+  if (regexStats().critRate.test(stat)) {
     critRate = stat.replace('CRIT Rate+', "")
       .replace('%', '');
   }
 
-  if (regExCritDmg.test(stat)) {
+  if (regexStats().critDmg.test(stat)) {
     critDmg = stat.replace('CRIT DMG+', "")
     .replace('%', '');
   }
 
-  if (regExAtkPcnt.test(stat)) {
+  if (regexStats().atkPcnt.test(stat)) {
     atkPercent = stat.replace('ATK+', "")
     .replace('%', '');
   }
 } // extractNum()
 
-// ------------------ DESTRUCTURE AND ASSIGN VARIABLES TO ELEMENTS ------------------------
-const {
-  regExCritRate,
-  regExCritDmg,
-  regExEM,
-  regExFlatATK,
-  regExAtkPcnt
-} = regexStats();
-
-const {
+let {
   atk,
   atkPercent,
   critDmg,
