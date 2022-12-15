@@ -16,6 +16,17 @@ function init() {
 	// scan the image
 	const scanBtn = document.querySelector('#scan-btn');
 	scanBtn.addEventListener('click', () => {
+		clearStatOutput();
+		let canvas = document.querySelector('#img-preview');
+		let blank = document.querySelector('#blank');
+		blank.width = canvas.width;
+		blank.height = canvas.height;
+		if(canvas.toDataURL() === document.getElementById('blank').toDataURL()){
+			console.log('blank!!')
+		}
+		else {
+			console.log('not blank!!');
+		}
 		let getImg = sessionStorage.getItem('artifact');
 		if (getImg) {
 			const gladiatorPiece = artifactPiece(getImg); // getImg is a base64 string in session storage
@@ -29,3 +40,10 @@ function init() {
 window.addEventListener('beforeunload', () => {
 	sessionStorage.clear();
 });
+
+function clearStatOutput() {
+	const output = document.getElementById('output');
+	while (output.firstChild) {
+		output.removeChild(output.firstChild);
+	}
+}

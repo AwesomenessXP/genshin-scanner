@@ -7,22 +7,22 @@ export const userImage = () => {
 	// --------------------- PUBLIC ATTRIBUTES ----------------------------------
 	const requestImg = async () => {
 	// TEST OUT IMAGE THEN URL
-	screenshot().addEventListener('change', function () {
-		try {
-			const reader = new FileReader(); // converts image to data URL
-			reader.addEventListener('load', () => {
-				sessionStorage.setItem('artifact', reader.result);
-			});
-			reader.readAsDataURL(this.files[0]); // result will be in binary
-		} // try
-		catch (error) {
-			error = "ERROR: no image found!";
-			customErrorMsg(error);
-		} // catch
-	});
+		screenshot().addEventListener('change', function () {
+			try {
+				const reader = new FileReader(); // converts image to data URL
+				reader.addEventListener('load', () => {
+					sessionStorage.setItem('artifact', reader.result);
+				});
+				reader.readAsDataURL(this.files[0]); // result will be in binary
+			} // try
+			catch (error) {
+				error = "ERROR: no image found!";
+				customErrorMsg(error);
+			} // catch
+		});
 
-	submitBtn().addEventListener('click', () => {
-		renderCanvas();
+		submitBtn().addEventListener('click', function () {
+			renderCanvas();
 	});
 		
 }// userImage()

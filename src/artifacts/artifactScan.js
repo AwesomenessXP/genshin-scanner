@@ -31,6 +31,7 @@ export const artifactPiece = (SCREENSHOT) => {
   // GET the data from OCR API
   // use fetch api to request data
   const extractText = async () => {
+    const outputTag = document.querySelector('#output');
     const error = 'ERROR: unable to process text!';
     const reqURL = `https://api.ocr.space/parse/image`;
     try {
@@ -54,7 +55,10 @@ export const artifactPiece = (SCREENSHOT) => {
       if (genshinData.ParsedResults[0].ParsedText === '' || genshinData.IsErroredOnProcessing) {
         throw "Unable to process image!";
       }
-      populateHTML(genshinData, dmgStats);
+
+      if (!outputTag.firstChild) {
+        populateHTML(genshinData, dmgStats);
+      }
       console.log(genshinData);
     } catch (error) {
       customErrorMsg("Files must be less than 1 MB!!");
