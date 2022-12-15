@@ -7,6 +7,7 @@ import { defaultErrorMsg } from './DOM/errorMsg.js'
 // DOM elements
 const scanBtn = document.querySelector('#scan-btn');
 const submit = document.querySelector('#submit');
+const fileElem = document.querySelector('#screenshot');
 const outputTag = document.getElementById('output');
 document.documentElement.className = "dark";
 document.querySelector('.mode-toggle').addEventListener('click', theme);
