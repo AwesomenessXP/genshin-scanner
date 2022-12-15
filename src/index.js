@@ -4,6 +4,10 @@ import './styles.css';
 import { theme } from "./toggleMode.js";
 import { defaultErrorMsg } from './DOM/errorMsg.js'
 
+// DOM elements
+const scanBtn = document.querySelector('#scan-btn');
+const submit = document.querySelector('#submit');
+const outputTag = document.getElementById('output');
 document.documentElement.className = "dark";
 document.querySelector('.mode-toggle').addEventListener('click', theme);
 document.addEventListener('DOMContentLoaded', init);
@@ -12,30 +16,24 @@ function init() {
 	// upload an image
 	let newIMG = userImage();
 	newIMG.requestImg();
-
-	// scan the image
-	const scanBtn = document.querySelector('#scan-btn');
-	scanBtn.addEventListener('click', () => {
-		clearStatOutput();
-		let canvas = document.querySelector('#img-preview');
-		let blank = document.querySelector('#blank');
-		blank.width = canvas.width;
-		blank.height = canvas.height;
-		if(canvas.toDataURL() === document.getElementById('blank').toDataURL()){
-			console.log('blank!!')
-		}
-		else {
-			console.log('not blank!!');
-		}
-		let getImg = sessionStorage.getItem('artifact');
-		if (getImg) {
-			const gladiatorPiece = artifactPiece(getImg); // getImg is a base64 string in session storage
-			gladiatorPiece.extractText();
-			console.log(gladiatorPiece.dmgStats);
-		}// if
-		else { defaultErrorMsg(); }  
-	});
 }
+
+// scan the image
+scanBtn.addEventListener('click', () => {
+	clearStatOutput();
+	outputTag.style.visibility = "visible";
+	let getImg = sessionStorage.getItem('artifact');
+	if (getImg) {
+		const gladiatorPiece = artifactPiece(getImg); // getImg is a base64 string in session storage
+		gladiatorPiece.extractText();
+		console.log(gladiatorPiece.dmgStats);
+	}// if
+	else { defaultErrorMsg(); }  
+});
+
+submit.addEventListener('click', () => {
+	outputTag.style.visibility = "visible";
+});
 
 window.addEventListener('beforeunload', () => {
 	sessionStorage.clear();

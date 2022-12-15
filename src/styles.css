@@ -149,3 +149,11 @@ img {
     }
 }
 
+#output {
+    visibility: hidden;
+    margin-top: 15px;
+    padding: 10px;
+    background-color: var(--canvas-background);
+    border-radius: var(--edge-radius);
+}
+

@@ -7,11 +7,11 @@ import { customErrorMsg } from '../../DOM/errorMsg.js';
  */
 export const populateHTML = async (scannedTextObj, dmgStats) => {
 	try {
-		const scannedText = scannedTextObj.ParsedResults[0].ParsedText;
+		const scannedText = await scannedTextObj.ParsedResults[0].ParsedText;
 		const artifacts = await scannedText.split("\n");
-		for (let item = 0; item < artifacts.length; item++) {
-			renderElements(artifacts, item, dmgStats); // pass in parsed text, body of HTML, element (ex: ATK+14), and dmgStats object
-		} // for
+			for (let item = 0; item < artifacts.length; item++) {
+				renderElements(artifacts, item, dmgStats); // pass in parsed text, body of HTML, element (ex: ATK+14), and dmgStats object
+			} // for
 	} catch (error) {
 		error = "ERROR: unable to render data!";
 		customErrorMsg(error);

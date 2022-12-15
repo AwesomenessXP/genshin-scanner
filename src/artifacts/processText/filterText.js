@@ -17,8 +17,8 @@ export function validateDmgStats(stat, dmgStats) {
   }// else if
   // if stat is a percentage:
   else if (regexStats().critRate.test(stat) ||
-         regexStats().critDmg.test(stat) ||
-        regexStats().atkPcnt.test(stat)) {
+          regexStats().critDmg.test(stat) ||
+          regexStats().atkPcnt.test(stat)) {
     extractNumber(stat, dmgStats);
     return true;
   }// if
@@ -31,13 +31,18 @@ export function validateDmgStats(stat, dmgStats) {
  * removes strings around the numbers, then saves the numbers in dmgStats object
  */
 const extractNumber = (stat, dmgStats) => {
-  (regexStats().critRate.test(stat)) ?
+  if (regexStats().critRate.test(stat)) {
     dmgStats.subStats.critRate = stat.replace('CRIT Rate+', "")
-      .replace('%', ''): null;
-  (regexStats().critDmg.test(stat)) ?
+      .replace('%', '');
+  }
+
+  if (regexStats().critDmg.test(stat)) {
     dmgStats.subStats.critDmg = stat.replace('CRIT DMG+', "")
-      .replace('%', ''): null;
-  (regexStats().atkPcnt.test(stat)) ?
+    .replace('%', '');
+  }
+
+  if (regexStats().atkPcnt.test(stat)) {
     dmgStats.subStats.atkPercent = stat.replace('ATK+', "")
-      .replace('%', ''): null;
+    .replace('%', '');
+  }
 } // extractNum()
