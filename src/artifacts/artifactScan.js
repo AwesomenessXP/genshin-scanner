@@ -2,6 +2,7 @@ import APIKEY from "../apiKey.js";
 import { dmgStats } from '../artifacts/processText/dmgStats.js';
 import { regexStats } from '../artifacts/processText/regexStats.js';
 import { customErrorMsg } from "../DOM/errorMsg.js";
+import { outputTag, renderOutput } from "../DOM/renderUI";
 
 export const artifactPiece = () => {
   return {
@@ -13,7 +14,7 @@ export const artifactPiece = () => {
 // GET the data from OCR API
 // use fetch api to request data
 async function extractText (SCREENSHOT) {
-  const outputTag = document.getElementById('output');
+  // const outputTag = document.getElementById('output');
   const reqURL = `https://api.ocr.space/parse/image`;
   try {
     let requestOptions = metadata(SCREENSHOT);
@@ -56,16 +57,14 @@ function metadata(SCREENSHOT) {
 /**
  * args: (parsed text obj), (obj w/artifact data)
  * populates the HTML, catch error if no text
+ * pass in parsed text, body of HTML, element (ex: ATK+14), and dmgStats object
  */
 async function populateHTML(scannedTextObj) {
 	try {
 		const scannedText = await scannedTextObj.ParsedResults[0].ParsedText;
 		const artifacts = await scannedText.split("\n");
-    // for (let item = 0; item < artifacts.length; item++) {
-    //
-    // } // for
-    // pass in parsed text, body of HTML, element (ex: ATK+14), and dmgStats object
     let itemCount = 0;
+
     artifacts.forEach(item => {
       if (itemCount < artifacts.length - 1) {
         renderElements(item, artifacts[itemCount+1]); 
@@ -84,16 +83,13 @@ async function populateHTML(scannedTextObj) {
  * appends new elements to the screen
  */
 async function renderElements(item, itemValue) {
-  const newPara = document.createElement("p");
-  const outputTag = document.getElementById('output');
-  newPara.className = "output";
-
+  const output = renderOutput();
+  const { newPara, outputTag } = output;
   const mainStats = [{ // expand on this later, include other main stats
     stat: /^ATK$/
   }];
 
   let foundMainStat = mainStats.find(mainStat => item.match(mainStat.stat));
-
 	if (foundMainStat != undefined) { // if this is a main stat
 		dmgStats.mainStats.ATK = itemValue;
 		newPara.textContent = `Main stat: ${item}: ${itemValue}`;
@@ -103,7 +99,8 @@ async function renderElements(item, itemValue) {
 			newPara.textContent = `${item}`; 
 		}
 	} // else
-	outputTag.appendChild(newPara);
+  // outputTag.appendChild(newPara);
+  outputTag.appendChild(newPara);
 } // renderElements()
 
 // Validate the text that was parsed
@@ -112,7 +109,12 @@ async function renderElements(item, itemValue) {
  * returns: true if valid, else false
  */
 function validateDmgStats(stat) {
-  const artifacts = new Map().set("Gladiator's Destiny", "Emblem"); // TODO: WILL USE LATER!!
+  // TODO: WILL USE LATER!!
+  const artifacts = new Map().set(
+    "Gladiator's Destiny",
+    "Emblem"
+  ); 
+
   if (regexStats().em.test(stat)) { // if flat stat
     elemMastery = stat.replace('Elemental Mastery+', "");
     return true;
@@ -140,7 +142,7 @@ function validateDmgStats(stat) {
 function extractNumber (stat) {
   if (regexStats().critRate.test(stat)) {
     critRate = stat.replace('CRIT Rate+', "")
-      .replace('%', '');
+    .replace('%', '');
   }
 
   if (regexStats().critDmg.test(stat)) {
