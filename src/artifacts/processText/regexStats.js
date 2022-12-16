@@ -4,7 +4,7 @@ export const regexStats = () => {
   const critDmg = /^CRIT DMG[+-]?([0-9]+\.?[0-9]*)\%$/;
   const em = /^Elemental Mastery[+-]?[0-9]*$/;
   const flatATK = /^ATK[+-]?[0-9]*$/;
-  const atkPcnt = new RegExp("^ATK[+-]?([0-9]+\.?[0-9]*)\%$");
+  const atkPcnt = /^ATK[+-]?([0-9]+\.?[0-9]*)\%$/;
   return {
     flatATK,
     atkPcnt,

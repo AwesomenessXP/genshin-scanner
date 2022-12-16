@@ -57,13 +57,21 @@ function metadata(SCREENSHOT) {
  * args: (parsed text obj), (obj w/artifact data)
  * populates the HTML, catch error if no text
  */
-async function populateHTML (scannedTextObj) {
+async function populateHTML(scannedTextObj) {
 	try {
 		const scannedText = await scannedTextObj.ParsedResults[0].ParsedText;
 		const artifacts = await scannedText.split("\n");
-			for (let item = 0; item < artifacts.length; item++) {
-				renderElements(artifacts, item); // pass in parsed text, body of HTML, element (ex: ATK+14), and dmgStats object
-			} // for
+    // for (let item = 0; item < artifacts.length; item++) {
+    //
+    // } // for
+    // pass in parsed text, body of HTML, element (ex: ATK+14), and dmgStats object
+    let itemCount = 0;
+    artifacts.forEach(item => {
+      if (itemCount < artifacts.length - 1) {
+        renderElements(item, artifacts[itemCount+1]); 
+      }
+      itemCount++;
+    })
 	} catch (error) {
 		error = "ERROR: unable to render data!";
 		customErrorMsg(error);
@@ -75,18 +83,24 @@ async function populateHTML (scannedTextObj) {
  * args: (array of parsed text), (body query selector), (string from array), (obj)
  * appends new elements to the screen
  */
-async function renderElements (artifacts, item) {
-	const newPara = document.createElement("p");
-	const outputTag = document.getElementById('output');
-	newPara.className = "output";
-	const regex = new RegExp("^ATK$"); // expand on this later, include other main stats
-	if (artifacts[item].match(regex)) { // if this is a main stat
-		dmgStats.mainStats.ATK = artifacts[item + 1];
-		newPara.textContent = `Main stat: ${artifacts[item]}: ${artifacts[item + 1]}`;
+async function renderElements(item, itemValue) {
+  const newPara = document.createElement("p");
+  const outputTag = document.getElementById('output');
+  newPara.className = "output";
+
+  const mainStats = [{ // expand on this later, include other main stats
+    stat: /^ATK$/
+  }];
+
+  let foundMainStat = mainStats.find(mainStat => item.match(mainStat.stat));
+
+	if (foundMainStat != undefined) { // if this is a main stat
+		dmgStats.mainStats.ATK = itemValue;
+		newPara.textContent = `Main stat: ${item}: ${itemValue}`;
 	} // if
 	else { // if this is a substat
-		if (validateDmgStats(artifacts[item])) {
-			newPara.textContent = `${artifacts[item]}`; // if valid, display content
+		if (validateDmgStats(item)) { // if valid, display content
+			newPara.textContent = `${item}`; 
 		}
 	} // else
 	outputTag.appendChild(newPara);
@@ -108,9 +122,10 @@ function validateDmgStats(stat) {
     return true;
   }// else if
   // if stat is a percentage:
-  else if (regexStats().critRate.test(stat) ||
-          regexStats().critDmg.test(stat) ||
-          regexStats().atkPcnt.test(stat)) {
+  else if (
+    regexStats().critRate.test(stat) ||
+    regexStats().critDmg.test(stat) ||
+    regexStats().atkPcnt.test(stat)) {
     extractNumber(stat);
     return true;
   }// if
