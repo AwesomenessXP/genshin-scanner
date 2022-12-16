@@ -2,6 +2,7 @@ import APIKEY from "../apiKey.js";
 import { dmgStats } from '../artifacts/processText/dmgStats.js';
 import { regexStats } from '../artifacts/processText/regexStats.js';
 import { customErrorMsg } from "../DOM/errorMsg.js";
+import { outputTag, renderOutput } from "../DOM/renderUI.js";
 
 export const artifactPiece = () => {
   return {
@@ -13,7 +14,6 @@ export const artifactPiece = () => {
 // GET the data from OCR API
 // use fetch api to request data
 async function extractText (SCREENSHOT) {
-  const outputTag = document.getElementById('output');
   const reqURL = `https://api.ocr.space/parse/image`;
   try {
     let requestOptions = metadata(SCREENSHOT);
@@ -84,10 +84,9 @@ async function populateHTML(scannedTextObj) {
  * appends new elements to the screen
  */
 async function renderElements(item, itemValue) {
-  const newPara = document.createElement("p");
-  const outputTag = document.getElementById('output');
-  newPara.className = "output";
-
+  const output = renderOutput();
+  let newPara = output.newPara;
+  let outputTag = output.outputTag;
   const mainStats = [{ // expand on this later, include other main stats
     stat: /^ATK$/
   }];
