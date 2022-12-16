@@ -131,10 +131,10 @@ async function renderElements(item, itemVal) {
   let newPara = output.newPara;
   let outputTag = output.outputTag;
 
-	if (fndMainStat(mainStats, item) != undefined) { 
+  if (fndMainStat(mainStats, item)
+    != undefined) { 
 		mainStat.ATK = itemVal;
-    newPara.textContent = `Main stat: 
-      ${item}: ${itemVal}`;
+    newPara.textContent = `Main stat: ${item}: ${itemVal}`;
   } // if
   // if valid, display content
 	else if (validateDmgStats(item)) { 
