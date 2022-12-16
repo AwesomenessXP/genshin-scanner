@@ -116,7 +116,6 @@ async function populateHTML(genshinData) {
  * args: (array of parsed text), (body query selector), (string from array), (obj)
  * appends new elements to the screen
  */
-
 const foundMainStat = (mainStats, item) => {
   return mainStats.find(mainStat => {
     return item.match(mainStat.stat)
