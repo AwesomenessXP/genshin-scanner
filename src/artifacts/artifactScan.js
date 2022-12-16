@@ -112,7 +112,10 @@ async function populateHTML(genData) {
 
 // render a new <p> element
 /**
- * args: (array of parsed text), (body query selector), (string from array), (obj)
+ * args: (array of parsed text), 
+ * (body query selector), 
+ * (string from array), 
+ * (obj)
  * appends new elements to the screen
  */
 const fndMainStat = (mainStats, item) => {
@@ -126,11 +129,12 @@ async function renderElements(item, itemVal) {
   let newPara = output.newPara;
   let outputTag = output.outputTag;
 
-	if (fndMainStat(mainStats, item) != undefined) { // if this is a main stat
+	if (fndMainStat(mainStats, item) != undefined) { 
 		mainStat.ATK = itemVal;
 		newPara.textContent = `Main stat: ${item}: ${itemVal}`;
-	} // if
-	else if (validateDmgStats(item)) { // if valid, display content
+  } // if
+  // if valid, display content
+	else if (validateDmgStats(item)) { 
     newPara.textContent = `${item}`; 
 	} // else
 	outputTag.appendChild(newPara);
