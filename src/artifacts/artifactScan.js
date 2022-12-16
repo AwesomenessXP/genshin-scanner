@@ -102,8 +102,10 @@ function readStats(artifct) {
 
 async function populateHTML(genData) {
 	try {
-		const scannedText = await parsedText(genData);
-		const artifacts = await scannedText.split("\n");
+		const scannedText = 
+      await parsedText(genData);
+    const artifacts =
+      await scannedText.split("\n");
     readStats(artifacts);
 	} catch (error) {
 		customErrorMsg(error);
@@ -131,7 +133,8 @@ async function renderElements(item, itemVal) {
 
 	if (fndMainStat(mainStats, item) != undefined) { 
 		mainStat.ATK = itemVal;
-		newPara.textContent = `Main stat: ${item}: ${itemVal}`;
+    newPara.textContent = `Main stat: 
+      ${item}: ${itemVal}`;
   } // if
   // if valid, display content
 	else if (validateDmgStats(item)) { 
@@ -148,7 +151,8 @@ async function renderElements(item, itemVal) {
  */
 function validateDmgStats(stat) {
   if (regexEm.test(stat)) { // if flat stat
-    subStats.elemMastery = stat.replace('Elemental Mastery+', "");
+    subStats.elemMastery = stat.replace(
+      'Elemental Mastery+', "");
     return true;
   }// if
   else if (regexFlatATK.test(stat)) { // if flat stat
