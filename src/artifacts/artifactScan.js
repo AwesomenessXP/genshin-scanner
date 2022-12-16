@@ -36,10 +36,10 @@ export const artifactPiece = () => {
 // GET the data from OCR API
 // use fetch api to request data
 
-async function extractText (SCREENSHOT) {
+async function extractText (screenS) {
   const reqURL = `https://api.ocr.space/parse/image`;
   try {
-    const genshinData = await fetchAPI(SCREENSHOT, reqURL);
+    const genshinData = await fetchAPI(screenS, reqURL);
     if (!outputTag.firstChild) {
       populateHTML(genshinData);
     }
@@ -57,29 +57,29 @@ const isError = (genshinData) => {
   return genshinData.IsErroredOnProcessing;
 }
 
-async function fetchAPI(SCREENSHOT, reqURL) {
-  const requestOptions = metadata(SCREENSHOT);
-  const response = await fetch(reqURL, requestOptions);
-  const genshinData = await response.json();
-  if (parsedText(genshinData) === ''|| isError(genshinData)) {
+async function fetchAPI(screenS, reqURL) {
+  const reqOptions = metadata(screenS);
+  const res = await fetch(reqURL, reqOptions);
+  const genData = await res.json();
+  if (parsedText(genData) === ''|| isError(genData)) {
     throw "Unable to process image!";
   }
-  return genshinData;
+  return genData;
 }
 
-function metadata(SCREENSHOT) {
+function metadata(screenS) {
   let myHeaders = new Headers();
   myHeaders.append("apikey", `${APIKEY}`);
 
-  let formdata = new FormData();
-  formdata.append("language", "eng");
-  formdata.append("base64Image", `${SCREENSHOT}`);
-  formdata.append("OCREngine", 2);
+  let form = new FormData();
+  form.append("language", "eng");
+  form.append("base64Image", `${screenS}`);
+  form.append("OCREngine", 2);
 
   let requestOptions = { // send this to the API
     method: 'POST',
     headers: myHeaders,
-    body: formdata,
+    body: form,
     redirect: 'follow'
   };
 
@@ -90,23 +90,22 @@ function metadata(SCREENSHOT) {
  * args: (parsed text obj), (obj w/artifact data)
  * populates the HTML, catch error if no text
  */
-function readStats(artifacts) {
+function readStats(artifct) {
   let itemCount = 0;
-  artifacts.forEach(item => {
-    if (itemCount < artifacts.length - 1) {
-      renderElements(item, artifacts[itemCount + 1]);
+  artifct.forEach(item => {
+    if (itemCount < artifct.length - 1) {
+      renderElements(item, artifct[itemCount + 1]);
     }
     itemCount++;
   });
 }
 
-async function populateHTML(genshinData) {
+async function populateHTML(genData) {
 	try {
-		const scannedText = await parsedText(genshinData);
+		const scannedText = await parsedText(genData);
 		const artifacts = await scannedText.split("\n");
     readStats(artifacts);
 	} catch (error) {
-		error = "ERROR: unable to render data!";
 		customErrorMsg(error);
 	}
 } // populateHTML()
@@ -116,20 +115,20 @@ async function populateHTML(genshinData) {
  * args: (array of parsed text), (body query selector), (string from array), (obj)
  * appends new elements to the screen
  */
-const foundMainStat = (mainStats, item) => {
+const fndMainStat = (mainStats, item) => {
   return mainStats.find(mainStat => {
     return item.match(mainStat.stat)
   });
 };
 
-async function renderElements(item, itemValue) {
+async function renderElements(item, itemVal) {
   const output = renderOutput();
   let newPara = output.newPara;
   let outputTag = output.outputTag;
 
-	if (foundMainStat(mainStats, item) != undefined) { // if this is a main stat
-		mainStat.ATK = itemValue;
-		newPara.textContent = `Main stat: ${item}: ${itemValue}`;
+	if (fndMainStat(mainStats, item) != undefined) { // if this is a main stat
+		mainStat.ATK = itemVal;
+		newPara.textContent = `Main stat: ${item}: ${itemVal}`;
 	} // if
 	else if (validateDmgStats(item)) { // if valid, display content
     newPara.textContent = `${item}`; 
@@ -139,7 +138,8 @@ async function renderElements(item, itemValue) {
 
 // Validate the text that was parsed
 /**
- * args: (string from array of parsed text), (obj w/ artifact data) 
+ * args: (string from array of parsed text), 
+ * (obj w/ artifact data) 
  * returns: true if valid, else false
  */
 function validateDmgStats(stat) {
@@ -152,17 +152,18 @@ function validateDmgStats(stat) {
     return true;
   }// else if
   else {
-    return extractNumber(stat);
+    return ExtractNum(stat);
   }//
 } // validatedmgStats()
 
-// removes 'CRIT RATE' or 'CRIT DMG' or 'ATK' from the string
 /**
- * args: (string from parsed text array), (obj w/artifact data)
- * removes strings around the numbers, then saves the numbers 
+ * args: (string from parsed text array), 
+ * (obj w/artifact data)
+ * removes strings around the numbers, 
+ * then saves the numbers 
  * in dmgStats object
  */
-function extractNumber (stat) {
+function ExtractNum (stat) {
   if (regexCritRate.test(stat)) {
     subStats.critRate = stat.replace('CRIT Rate+', "")
       .replace('%', '');
